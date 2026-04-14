@@ -659,6 +659,7 @@ flowchart LR
             <tr><td>주차별 CM1 추적</td><td>주간 CM1 실적 vs 목표 갭 분석</td><td><span class="badge badge-weekly">주간</span></td><td>OBT 데이터</td></tr>
             <tr><td>고객 수익성 분석</td><td>고수익/저수익 고객 세분화, 성장 잠재 고객 식별</td><td><span class="badge badge-monthly">월간</span></td><td>Tableau</td></tr>
             <tr><td>VSL/VOY 기여도</td><td>서비스/항차별 수익 기여도 파악</td><td><span class="badge badge-monthly">월간</span></td><td>OBT 데이터</td></tr>
+            <tr><td>고수익 고객 발굴 및 우선순위 정비</td><td>고수익 화주 식별, 우선순위 리스트 관리</td><td><span class="badge badge-monthly">월간</span></td><td>Tableau, OBT</td></tr>
         </table>
     </div>
 
@@ -679,6 +680,10 @@ flowchart LR
             <tr><td>E-Group 주간 대시보드</td><td>주간 경영진 회의용 KPI 대시보드 생성</td><td><span class="badge badge-weekly">주간</span></td><td>/weekly-review</td></tr>
             <tr><td>월간회의 자료</td><td>월간 실적 리뷰 및 전략 회의 자료</td><td><span class="badge badge-monthly">월간</span></td><td>Google Drive</td></tr>
             <tr><td>영업회의 자료</td><td>법인별 회의 기록, 성과 리뷰</td><td><span class="badge badge-adhoc">수시</span></td><td>Google Drive</td></tr>
+            <tr><td>회의록 작성 및 정리</td><td>팀/법인 회의 기록 작성 및 관리</td><td><span class="badge badge-adhoc">수시</span></td><td>Google Drive</td></tr>
+            <tr><td>인센티브 평가 취합 및 보고서 작성</td><td>해외법인 인센티브 평가 데이터 취합, 보고서 작성</td><td><span class="badge badge-monthly">분기/반기</span></td><td>Excel, Google Sheets</td></tr>
+            <tr><td>교육/설명자료 작성</td><td>팀 내 업무 프로세스 및 시스템 교육 자료</td><td><span class="badge badge-adhoc">수시</span></td><td>Google Drive</td></tr>
+            <tr><td>데이터 가공 및 기준표 정비</td><td>운임/실적 기준표 정비 및 데이터 가공</td><td><span class="badge badge-adhoc">수시</span></td><td>Excel, Python</td></tr>
         </table>
     </div>
 
@@ -692,6 +697,7 @@ flowchart LR
             <tr><td>KMTC 항로 수집</td><td>협력사 서비스 항로 웹스크래핑</td><td><span class="badge badge-adhoc">수시</span></td><td>/kmtc-routes</td></tr>
             <tr><td>운임변화 분석</td><td>운임 트렌드 추출/분석/대시보드</td><td><span class="badge badge-project">프로젝트</span></td><td>Python</td></tr>
             <tr><td>환율 대시보드</td><td>일별 환율 자동 수집 및 시각화</td><td><span class="badge badge-daily">일간</span></td><td>fetch_exchange.py</td></tr>
+            <tr><td>SOP/매뉴얼/보고 체계 표준화</td><td>업무 프로세스 SOP 문서화, 보고 체계 정비</td><td><span class="badge badge-project">프로젝트</span></td><td>Google Drive</td></tr>
         </table>
     </div>
 
@@ -703,6 +709,7 @@ flowchart LR
             <tr><td>S/C 관리</td><td>계약번호, SCAC 관리, NVOCC/VOCC 구분</td><td><span class="badge badge-adhoc">수시</span></td><td>사내 시스템</td></tr>
             <tr><td>AMS Filing</td><td>AMS filing 책임 구분 및 컴플라이언스</td><td><span class="badge badge-adhoc">수시</span></td><td>사내 시스템</td></tr>
             <tr><td>프로세스 연계 검토</td><td>Booking/B/L/Freight/AMS 연계 로직 검토 및 개선</td><td><span class="badge badge-adhoc">수시</span></td><td>사내 시스템</td></tr>
+            <tr><td>미국 S/C 계약 관리</td><td>미국향 Service Contract 확인/승인, 특이사항 가이드</td><td><span class="badge badge-adhoc">수시</span></td><td>사내 시스템</td></tr>
         </table>
     </div>
 
@@ -913,6 +920,7 @@ flowchart LR
 | 고객 수익성 분석 | 고수익 vs 저수익 고객 세분화 | 월간 | Tableau, OBT |
 | VSL/VOY 기여도 분석 | 서비스/항차별 수익 기여도 파악 | 월간 | OBT 데이터 |
 | 소석률 분석 | 선박별 적재율 모니터링 및 최적화 | 주간 | BSA/Booking 데이터 |
+| 고수익 고객 발굴 및 우선순위 정비 | 고수익 화주 식별, 우선순위 리스트 관리 | 월간 | Tableau, OBT |
 
 ### E. OBT 데이터 관리
 
@@ -929,6 +937,10 @@ flowchart LR
 | E-Group 주간 회의 대시보드 | 주간 경영진 회의용 KPI 대시보드 생성 | 주간 | /weekly-review |
 | 월간회의 자료 | 월간 실적 리뷰 및 전략 회의 자료 | 월간 | Google Drive |
 | 영업회의 자료 | 법인별 회의 기록, 성과 리뷰 | 수시 | Google Drive |
+| 회의록 작성 및 정리 | 팀/법인 회의 기록 작성 및 관리 | 수시 | Google Drive |
+| 인센티브 평가 취합 및 보고서 작성 | 해외법인 인센티브 평가 데이터 취합, 보고서 작성 | 분기/반기 | Excel, Google Sheets |
+| 교육/설명자료 작성 | 팀 내 업무 프로세스 및 시스템 교육 자료 | 수시 | Google Drive |
+| 데이터 가공 및 기준표 정비 | 운임/실적 기준표 정비 및 데이터 가공 | 수시 | Excel, Python |
 
 ### G. 시스템/AI 혁신
 
@@ -942,6 +954,7 @@ flowchart LR
 | 환율 대시보드 | 일별 환율 자동 수집 및 시각화 | 일간 | fetch_exchange.py |
 | 운임 DB 관리 | rate_db.json 유지보수 및 갱신 | 상시 | /rate-db |
 | 운임 비교 리포트 | 루트/항구별 운임 비교 | 수시 | /rate-compare |
+| SOP/매뉴얼/보고 체계 표준화 | 업무 프로세스 SOP 문서화, 보고 체계 정비 | 프로젝트 | Google Drive |
 
 ### H. 규정/계약 관리
 
@@ -951,6 +964,7 @@ flowchart LR
 | S/C 관리 | 계약번호, SCAC 관리 | 수시 | 사내 시스템 |
 | AMS Filing 책임 구분 | NVOCC/VOCC 구분, 컴플라이언스 확보 | 수시 | 사내 시스템 |
 | 프로세스 연계 검토 | Booking/B/L/Freight/AMS 연계 로직 검토 | 수시 | 사내 시스템 |
+| 미국 S/C 계약 관리 | 미국향 Service Contract 확인/승인, 특이사항 가이드 | 수시 | 사내 시스템 |
 
 ### I. Tableau 장표 관리 (Q 모음)
 
