@@ -462,7 +462,9 @@ flowchart TD
         E2["CM1 목표 분배 MY/ID/SG/US/MX"]
         E3["CM1/TEU Forecast /sea-cm1-forecast"]
         E4["운임 인상/변동 안내"]
+        E5["분기/반기 목표 설정 및 예산 수립"]
         E1 --> E2 --> E3 --> E4
+        E1 --> E5
     end
 
     subgraph MID["월중 (6~20일)"]
@@ -470,7 +472,9 @@ flowchart TD
         M2["VSL/VOY 기여도 분석"]
         M3["RFQ/비딩 결과 분석"]
         M4["시장 동향 리포트"]
+        M5["인센티브 평가 취합 (분기/반기)"]
         M1 --> M2 --> M3 --> M4
+        M1 --> M5
     end
 
     subgraph LATE["월말 (21~말일)"]
