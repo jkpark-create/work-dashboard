@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>해외영업 전략 및 수익관리 - 업무 정리</title>
+    <!-- mermaid & marked are loaded at the end of body -->
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #f0f4f8;
+            color: #1a202c;
+            line-height: 1.6;
+        }
+        .header {
+            background: linear-gradient(135deg, #1e3a5f 0%, #2d5a87 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        .header h1 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+        .header p { opacity: 0.85; font-size: 0.95rem; }
+
+        /* ── 탭 네비게이션 ── */
+        .tab-bar {
+            background: #1e3a5f;
+            display: flex;
+            justify-content: center;
+            gap: 0;
+        }
+        .tab-btn {
+            background: none;
+            border: none;
+            color: rgba(255,255,255,0.65);
+            padding: 0.85rem 1.8rem;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.2s;
+        }
+        .tab-btn:hover { color: white; background: rgba(255,255,255,0.08); }
+        .tab-btn.active {
+            color: white;
+            border-bottom-color: #63b3ed;
+            background: rgba(255,255,255,0.1);
+        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+
+        /* ── 섹션 내 앵커 네비 ── */
+        .nav {
+            background: #fff;
+            border-bottom: 1px solid #e2e8f0;
+            padding: 0.75rem 2rem;
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .nav a {
+            text-decoration: none;
+            color: #2d5a87;
+            padding: 0.4rem 0.8rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 500;
+            transition: all 0.2s;
+        }
+        .nav a:hover, .nav a.active { background: #2d5a87; color: white; }
+
+        .container { max-width: 1400px; margin: 0 auto; padding: 1.5rem; }
+        .section {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+        .section h2 {
+            color: #1e3a5f;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e2e8f0;
+            font-size: 1.3rem;
+        }
+        .section h3 {
+            color: #2d5a87;
+            margin: 1.5rem 0 0.75rem;
+            font-size: 1.1rem;
+        }
+
+        /* ── Mermaid 차트 공통 ── */
+        .chart-wrap {
+            padding: 2rem 0.5rem;
+            overflow-x: auto;
+            background: #fafcff;
+            border-radius: 8px;
+            margin: 0.5rem 0;
+        }
+        .chart-wrap .mermaid {
+            display: flex;
+            justify-content: center;
+        }
+        .chart-wrap .mermaid svg {
+            max-width: 100% !important;
+            height: auto !important;
+        }
+
+        /* ── 카드 그리드 (전체 업무 구조도) ── */
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.2rem;
+            margin: 1rem 0;
+        }
+        .overview-card {
+            border: 2px solid #cbd5e0;
+            border-radius: 12px;
+            padding: 1rem;
+            background: #fafcff;
+            overflow: hidden;
+            transition: border-color 0.2s;
+        }
+        .overview-card:hover { border-color: #2d5a87; }
+        .overview-card:nth-child(1) { border-top: 4px solid #3182ce; }
+        .overview-card:nth-child(2) { border-top: 4px solid #dd6b20; }
+        .overview-card:nth-child(3) { border-top: 4px solid #38a169; }
+        .overview-card:nth-child(4) { border-top: 4px solid #805ad5; }
+        .overview-card:nth-child(5) { border-top: 4px solid #e53e3e; }
+        .overview-card:nth-child(6) { border-top: 4px solid #319795; }
+        .overview-card:nth-child(7) { border-top: 4px solid #d69e2e; }
+        .overview-card:nth-child(8) { border-top: 4px solid #718096; }
+        /* 카드 안 차트: 반드시 카드 안에 맞춤 */
+        .overview-card .chart-wrap { padding: 0.5rem 0; margin: 0; }
+        .overview-card .mermaid svg { width: 100% !important; max-width: 100% !important; height: auto !important; }
+
+        /* ── 테이블 ── */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+        th {
+            background: #edf2f7;
+            color: #1e3a5f;
+            padding: 0.6rem 0.8rem;
+            text-align: left;
+            font-weight: 600;
+            border-bottom: 2px solid #cbd5e0;
+        }
+        td {
+            padding: 0.5rem 0.8rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        tr:hover td { background: #f7fafc; }
+        .badge {
+            display: inline-block;
+            padding: 0.15rem 0.5rem;
+            border-radius: 10px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+        .badge-daily { background: #e6fffa; color: #234e52; }
+        .badge-weekly { background: #ebf4ff; color: #2a4365; }
+        .badge-monthly { background: #faf5ff; color: #44337a; }
+        .badge-adhoc { background: #fffaf0; color: #744210; }
+        .badge-project { background: #fff5f5; color: #742a2a; }
+
+        /* ── 스킬 카드 ── */
+        .skill-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        .skill-card {
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1rem;
+            transition: all 0.2s;
+        }
+        .skill-card:hover {
+            border-color: #2d5a87;
+            box-shadow: 0 2px 8px rgba(45,90,135,0.15);
+        }
+        .skill-card code {
+            background: #edf2f7;
+            padding: 0.15rem 0.4rem;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            color: #2d5a87;
+            font-weight: 600;
+        }
+        .skill-card .desc {
+            color: #4a5568;
+            font-size: 0.85rem;
+            margin-top: 0.3rem;
+        }
+
+        /* ── 보고 라인 ── */
+        .reporting-line {
+            font-family: 'Courier New', monospace;
+            background: #f7fafc;
+            padding: 1.5rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            white-space: pre;
+            overflow-x: auto;
+        }
+
+        /* ── 마크다운 뷰어 ── */
+        #md-viewer {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        #md-viewer h1 { font-size: 1.6rem; color: #1e3a5f; border-bottom: 2px solid #2d5a87; padding-bottom: 0.5rem; margin: 2rem 0 1rem; }
+        #md-viewer h2 { font-size: 1.3rem; color: #1e3a5f; border-bottom: 1px solid #e2e8f0; padding-bottom: 0.4rem; margin: 1.8rem 0 0.8rem; }
+        #md-viewer h3 { font-size: 1.1rem; color: #2d5a87; margin: 1.4rem 0 0.6rem; }
+        #md-viewer table { border: 1px solid #e2e8f0; border-radius: 8px; overflow: hidden; }
+        #md-viewer th { background: #edf2f7; }
+        #md-viewer td, #md-viewer th { padding: 0.5rem 0.8rem; border: 1px solid #e2e8f0; font-size: 0.85rem; }
+        #md-viewer blockquote { border-left: 4px solid #2d5a87; padding: 0.5rem 1rem; background: #f7fafc; margin: 1rem 0; color: #4a5568; }
+        #md-viewer code { background: #edf2f7; padding: 0.1rem 0.4rem; border-radius: 3px; font-size: 0.85rem; }
+        #md-viewer pre { background: #1a202c; color: #e2e8f0; padding: 1.2rem; border-radius: 8px; overflow-x: auto; margin: 1rem 0; }
+        #md-viewer pre code { background: none; color: inherit; }
+        #md-viewer hr { border: none; border-top: 1px solid #e2e8f0; margin: 2rem 0; }
+        #md-viewer strong { color: #1e3a5f; }
+
+        @media (max-width: 900px) {
+            .overview-grid { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .container { padding: 0.75rem; }
+            .section { padding: 1rem; }
+            .header h1 { font-size: 1.3rem; }
+            .tab-btn { padding: 0.6rem 1rem; font-size: 0.85rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>해외영업 전략 및 수익관리 담당</h1>
+    <p>개인 업무 정리 | 박준규 (KR SEL) | 2026-04-14</p>
+</div>
+
+<!-- ═══ 탭 바 ═══ -->
+<div class="tab-bar">
+    <button class="tab-btn active" data-tab="flowchart">플로우차트</button>
+    <button class="tab-btn" data-tab="detail">업무 상세</button>
+    <button class="tab-btn" data-tab="tools">자동화 도구</button>
+    <button class="tab-btn" data-tab="markdown">전체 문서 (MD)</button>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     TAB 1: 플로우차트
+     ═══════════════════════════════════════════════ -->
+<div class="tab-content active" id="tab-flowchart">
+<div class="nav">
+    <a href="#overview">전체 구조</a>
+    <a href="#daily">일간</a>
+    <a href="#weekly">주간</a>
+    <a href="#monthly">월간</a>
+    <a href="#pipeline">데이터 파이프라인</a>
+    <a href="#org">조직/협업</a>
+</div>
+<div class="container">
+
+    <!-- ── 1. 전체 업무 구조도 ── -->
+    <div class="section" id="overview">
+        <h2>1. 전체 업무 구조도</h2>
+        <div class="overview-grid">
+            <div class="overview-card">
+                <div class="chart-wrap"><div class="mermaid">
+flowchart TD
+    subgraph A["A. 운임 관리"]
+        A3["운임 파일 생성/갱신"] --> A4["운임 조회 및 회신"]
+        A3 --> A6["주간 운임 리포트"]
+        A5["GRI/PSS 안내"] --> A7["운임 대시보드 관리"]
+        A1["Freetime 승인"]
+        A2["Storage 감면 처리"]
+    end
+                </div></div>
+            </div>
+            <div class="overview-card">
+                <div class="chart-wrap"><div class="mermaid">
+flowchart TD
+    subgraph B["B. RFQ / 비딩 관리"]
+        B1["RFQ 수신/분석"] --> B2["RFQ 운임 자동입력"]
+        B3["비딩 파일 동기화"] --> B2
+        B2 --> B4["비딩 이력 관리"]
+    end
+                </div></div>
+            </div>
+            <div class="overview-card">
+                <div class="chart-wrap"><div class="mermaid">
+flowchart TD
+    subgraph C["C. BKG / Lifting / Cancel"]
+        C1["Booking Snapshot"] --> C2["-3W Dashboard"]
+        C5["BKG vs Lifting 추적"] --> C3["캔슬 비율 분석"]
+        C3 --> C4["선복 할당 / BSA 관리"]
+    end
+                </div></div>
+            </div>
+            <div class="overview-card">
+                <div class="chart-wrap"><div class="mermaid">
+flowchart TD
+    subgraph D["D. 실적 분석 / 예측"]
+        D3["주차별 CM1 추적"] --> D1["CM1/TEU Forecast"]
+        D4["고객 수익성 분석"] --> D1
+        D1 --> D2["목표 분배"]
+        D6["소석률 분석"]
+        D5["VSL/VOY 기여도"]
+    end
+                </div></div>
+            </div>
+            <div class="overview-card">
+                <div class="chart-wrap"><div class="mermaid">
+flowchart TD
+    subgraph E["E. OBT 데이터 관리"]
+        E1["OBT Raw 자동수집"] --> E2["Google Sheets 동기화"] --> E3["데이터 품질 검증"]
+    end
+                </div></div>
+            </div>
+            <div class="overview-card">
+                <div class="chart-wrap"><div class="mermaid">
+flowchart TD
+    subgraph F["F. 보고 / 자료 작성"]
+        F1["주간 회의 대시보드"]
+        F2["월간회의 자료"]
+        F3["영업회의 자료"]
+    end
+                </div></div>
+            </div>
+            <div class="overview-card">
+                <div class="chart-wrap"><div class="mermaid">
+flowchart TD
+    subgraph G["G. 시스템 / AI 혁신"]
+        G3["운임 DB 관리"] --> G1["자동 입찰 프로그램"]
+        G3 --> G2["영업활동 관리 시스템"]
+    end
+                </div></div>
+            </div>
+            <div class="overview-card">
+                <div class="chart-wrap"><div class="mermaid">
+flowchart TD
+    subgraph H["H. 규정 / 계약 관리"]
+        H1["FMC Filing"]
+        H2["S/C 관리"]
+        H3["AMS Filing"]
+        H4["프로세스 연계 검토"]
+    end
+                </div></div>
+            </div>
+        </div>
+
+        <h3>업무 간 연결 관계</h3>
+        <div class="chart-wrap"><div class="mermaid">
+flowchart LR
+    A3["A. 운임 파일 갱신"] --> B2["B. RFQ 자동입력"]
+    A3 --> A6["A. 주간 운임 리포트"]
+    E1["E. OBT Raw 수집"] --> E2["E. Google Sheets"]
+    E2 --> D3["D. 주차별 CM1 추적"]
+    E2 --> C1["C. Booking Snapshot"]
+    C1 --> C2["C. -3W Dashboard"]
+    D3 --> D1["D. CM1/TEU Forecast"]
+    D1 --> D2["D. 목표 분배"]
+    C3["C. 캔슬 분석"] --> D4["D. 고객 수익성"]
+    D3 --> F1["F. 주간 대시보드"]
+    A6 --> F1
+    D1 --> F2["F. 월간회의 자료"]
+        </div></div>
+    </div>
+
+    <!-- ── 2. 일간 업무 흐름 ── -->
+    <div class="section" id="daily">
+        <h2>2. 일간 업무 흐름</h2>
+        <div class="chart-wrap"><div class="mermaid">
+flowchart LR
+    subgraph AM["오전"]
+        M1["메일 확인 (Gmail)"] --> M2{"긴급 건?"}
+        M2 -->|"Yes"| M3["Freetime 승인 / Storage 감면"]
+        M2 -->|"No"| M4["운임 문의 확인"]
+        M3 --> M4
+        M4 --> M5["RFQ 수신 확인 (Google Drive)"]
+        M5 --> M6["Spot 운임 조회/회신"]
+        M6 --> M7["RFQ 자동입력"]
+    end
+
+    subgraph PM["오후"]
+        P1["부킹 현황 모니터링"] --> P2["CM1/소석률 확인"]
+        P2 --> P3["캔슬 패턴 체크"]
+        P3 --> P4{"회의 예정?"}
+        P4 -->|"Yes"| P5["회의 자료 업데이트"]
+        P4 -->|"No"| P6["시장 동향 체크"]
+        P5 --> P6
+    end
+
+    subgraph EV["마감"]
+        EV1["미처리 건 정리"] --> EV2["데이터 축적 (주간/월간)"]
+        EV2 --> EV3["익일 일정 확인"]
+    end
+
+    AM --> PM --> EV
+        </div></div>
+    </div>
+
+    <!-- ── 3. 주간 업무 흐름 ── -->
+    <div class="section" id="weekly">
+        <h2>3. 주간 업무 흐름</h2>
+        <div class="chart-wrap"><div class="mermaid">
+flowchart TD
+    subgraph MON["월요일 - 집계"]
+        M1["전주 실적 집계 BKG/Lifting/Cancel"]
+        M2["OBT Raw 자동수집 /obt-update"]
+        M3["Booking Snapshot /booking-snapshot"]
+        M1 --> M2 --> M3
+    end
+
+    subgraph TUE["화~수 - 분석"]
+        T1["주간 운임 변동 리포트 /weekly-rate-report"]
+        T2["-3W Booking Dashboard /3w-dashboard"]
+        T3["주차별 CM1 추적"]
+        T4["고캔슬 고객 모니터링"]
+        T1 --> T2 --> T3 --> T4
+    end
+
+    subgraph THU["목요일 - 보고"]
+        H1["E-Group 주간 대시보드 /weekly-review"]
+        H2["주간 회의 참석/보고"]
+        H3["액션 아이템 정리"]
+        H1 --> H2 --> H3
+    end
+
+    subgraph FRI["금요일 - 마감"]
+        F1["주간 KPI 마감"]
+        F2["운임 DB 갱신 확인 /rate-update"]
+        F3["차주 예상 이슈 정리"]
+        F1 --> F2 --> F3
+    end
+
+    MON --> TUE --> THU --> FRI
+        </div></div>
+    </div>
+
+    <!-- ── 4. 월간 업무 흐름 ── -->
+    <div class="section" id="monthly">
+        <h2>4. 월간 업무 흐름</h2>
+        <div class="chart-wrap"><div class="mermaid">
+flowchart TD
+    subgraph EARLY["월초 (1~5일)"]
+        E1["전월 실적 마감 CM1/TEU 실적 vs 목표"]
+        E2["CM1 목표 분배 MY/ID/SG/US/MX"]
+        E3["CM1/TEU Forecast /sea-cm1-forecast"]
+        E4["운임 인상/변동 안내"]
+        E1 --> E2 --> E3 --> E4
+    end
+
+    subgraph MID["월중 (6~20일)"]
+        M1["고객 수익성 분석 고수익/저수익 세분화"]
+        M2["VSL/VOY 기여도 분석"]
+        M3["RFQ/비딩 결과 분석"]
+        M4["시장 동향 리포트"]
+        M1 --> M2 --> M3 --> M4
+    end
+
+    subgraph LATE["월말 (21~말일)"]
+        L1["월간회의 자료 작성"]
+        L2["익월 운임 전략 수립"]
+        L3["BSA 대비 실적 리뷰"]
+        L4["시스템 개선사항 정리"]
+        L1 --> L2 --> L3 --> L4
+    end
+
+    EARLY --> MID --> LATE
+        </div></div>
+    </div>
+
+    <!-- ── 5. 데이터 파이프라인 ── -->
+    <div class="section" id="pipeline">
+        <h2>5. 데이터 파이프라인</h2>
+
+        <h3>전체 흐름</h3>
+        <div class="chart-wrap"><div class="mermaid">
+flowchart TD
+    subgraph SRC["데이터 수집"]
+        I1[("Tableau OBT Raw")]
+        I2[("Google Drive 운임 Excel")]
+        I3[("Gmail RFQ/운임문의")]
+        I4[("KMTC 웹사이트")]
+        I5[("환율 API")]
+    end
+    subgraph PROC["자동화 처리"]
+        P1["obt-update"]
+        P2["rate-update"]
+        P3["rfq-fill"]
+        P4["kmtc-routes"]
+        P5["fetch_exchange"]
+        P6["cm1_targets"]
+    end
+    subgraph DB["데이터 저장"]
+        S1[("Google Sheets")]
+        S2[("rate_db.json")]
+        S3[("bidding_archiving")]
+        S4[("kmtc_routes")]
+        S5[("환율 CSV")]
+    end
+    subgraph OUT["산출물"]
+        O1["E-Group 주간 대시보드"]
+        O2["운임 추이 대시보드"]
+        O3["-3W Booking Dashboard"]
+        O4["주간 운임 리포트"]
+        O5["CM1/TEU Forecast"]
+        O6["월간회의 자료"]
+    end
+    I1 --> P1 --> S1
+    I2 --> P2 --> S2
+    I3 --> P3 --> S3
+    I4 --> P4 --> S4
+    I5 --> P5 --> S5
+    S1 --> P6 --> O5
+    S2 --> P3
+    S1 --> O1
+    S1 --> O3
+    S2 --> O2
+    S2 --> O4
+    O1 --> O6
+    O2 --> O6
+    O5 --> O6
+        </div></div>
+
+        <details style="margin-top:1rem">
+        <summary style="cursor:pointer; color:#2d5a87; font-weight:600; font-size:1rem; padding:0.5rem 0">단계별 상세 보기</summary>
+
+        <h3>Step 1. 데이터 수집 &rarr; 처리</h3>
+        <div class="chart-wrap"><div class="mermaid">
+flowchart LR
+    I1[("Tableau OBT Raw")] -->|"다운로드"| P1["obt-update"]
+    I2[("Google Drive 운임 Excel")] -->|"동기화"| P2["rate-update"]
+    I3[("Gmail RFQ/운임문의")] -->|"수신"| P3["rfq-fill"]
+    I4[("KMTC 웹사이트 항로정보")] -->|"스크래핑"| P4["kmtc-routes"]
+    I5[("환율 API")] -->|"API 호출"| P5["fetch_exchange.py"]
+        </div></div>
+
+        <h3>Step 2. 처리 &rarr; 데이터 저장</h3>
+        <div class="chart-wrap"><div class="mermaid">
+flowchart LR
+    P1["obt-update"] -->|"업로드"| S1[("Google Sheets")]
+    P2["rate-update"] -->|"갱신"| S2[("rate_db.json")]
+    P3["rfq-fill"] -->|"아카이빙"| S3[("bidding_archiving.xlsx")]
+    P4["kmtc-routes"] -->|"저장"| S4[("kmtc_routes.xlsx")]
+    P5["fetch_exchange"] -->|"적재"| S5[("환율 CSV")]
+    S1 -->|"목표산출"| P6["generate_cm1_targets"]
+    S2 -->|"운임매핑"| P3b["rfq-fill"]
+        </div></div>
+
+        <h3>Step 3. 데이터 저장 &rarr; 산출물</h3>
+        <div class="chart-wrap"><div class="mermaid">
+flowchart LR
+    S1[("Google Sheets")] --> O1["E-Group 주간 대시보드"]
+    S1 --> O3["-3W Booking Dashboard"]
+    S1 --> O5["CM1/TEU Forecast"]
+    S2[("rate_db.json")] --> O2["운임 추이 대시보드"]
+    S2 --> O4["주간 운임 리포트"]
+    S2 --> O7["운임 비교 리포트"]
+    O1 --> O6["월간회의 자료"]
+    O2 --> O6
+    O5 --> O6
+        </div></div>
+
+        </details>
+    </div>
+
+    <!-- ── 6. 조직/협업 ── -->
+    <div class="section" id="org">
+        <h2>6. 보고 라인 및 협업</h2>
+        <div class="reporting-line">영업본부장 / 해외영업팀장
+        │
+        ├── <strong>해외영업 전략 및 수익관리 (본인)</strong>
+        │       ├── 동남아 항로 (MY/ID/SG)
+        │       └── 미주 항로 (US/MX)
+        │
+        ├── 운영팀 ←→ 선복 할당, BSA 관리
+        ├── 가격팀 ←→ 운임 책정, S/C 관리
+        ├── IT팀 ←→ 시스템 개선, 자동화
+        └── 해외 법인 ←→ 현지 영업 실행</div>
+
+        <h3>정기 회의</h3>
+        <table>
+            <tr><th>회의</th><th>주기</th><th>주요 안건</th></tr>
+            <tr><td>E-Group 주간 회의</td><td><span class="badge badge-weekly">주간</span></td><td>주간 KPI, 운임 동향, 부킹 현황</td></tr>
+            <tr><td>월간 실적 리뷰</td><td><span class="badge badge-monthly">월간</span></td><td>CM1/TEU 실적, 목표 달성률, 시장 분석</td></tr>
+            <tr><td>연간 전략회의</td><td>연간</td><td>연간 목표 수립, 항로 전략, 투자 계획</td></tr>
+            <tr><td>시스템 개선 TFT</td><td><span class="badge badge-adhoc">수시</span></td><td>프로세스 개선, 자동화 과제</td></tr>
+        </table>
+    </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     TAB 2: 업무 상세
+     ═══════════════════════════════════════════════ -->
+<div class="tab-content" id="tab-detail">
+<div class="container">
+
+    <div class="section">
+        <h2>A. 운임(Rate) 관리</h2>
+        <table>
+            <tr><th>업무</th><th>상세</th><th>빈도</th><th>도구</th></tr>
+            <tr><td>Freetime 승인</td><td>고객별 D/F, Detention 기간 승인 요청 처리</td><td><span class="badge badge-adhoc">수시</span></td><td>사내 시스템</td></tr>
+            <tr><td>Long Idling Storage 감면</td><td>장기 체화 컨테이너 storage 비용 감면 요청 대응</td><td><span class="badge badge-adhoc">수시</span></td><td>Gmail</td></tr>
+            <tr><td>운임 파일 생성/관리</td><td>SEA/CN_HK 운임 Excel → rate_db.json 갱신</td><td><span class="badge badge-weekly">주간</span></td><td>/rate-update</td></tr>
+            <tr><td>운임 조회 및 고객 회신</td><td>고객 RFQ 또는 spot 운임 문의 대응</td><td><span class="badge badge-adhoc">수시</span></td><td>/rate-lookup</td></tr>
+            <tr><td>운임 인상/변동 안내</td><td>GRI/PSS 등 운임 변동 사항 고객 및 내부 공유</td><td><span class="badge badge-monthly">월간</span></td><td>운임인상 대시보드</td></tr>
+            <tr><td>주간 운임 변동 리포트</td><td>주요 항로별 운임 추이 분석 및 보고서 발송</td><td><span class="badge badge-weekly">주간</span></td><td>/weekly-rate-report</td></tr>
+            <tr><td>운임 추이 대시보드</td><td>항로별 운임 트렌드 시각화 및 모니터링</td><td><span class="badge badge-daily">상시</span></td><td>/rate-dashboard</td></tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>B. RFQ / 비딩 관리</h2>
+        <table>
+            <tr><th>업무</th><th>상세</th><th>빈도</th><th>도구</th></tr>
+            <tr><td>RFQ 수신 및 분석</td><td>고객 RFQ 파일 수신, 노선/컨테이너타입 추출</td><td><span class="badge badge-adhoc">수시</span></td><td>Gmail, GDrive</td></tr>
+            <tr><td>RFQ 운임 자동입력</td><td>RFQ 양식에 현재 운임 자동 매핑 및 입력</td><td><span class="badge badge-adhoc">수시</span></td><td>/rfq-fill</td></tr>
+            <tr><td>비딩 파일 동기화</td><td>Google Drive 비딩 폴더와 로컬 캐시 동기화</td><td><span class="badge badge-adhoc">수시</span></td><td>/gdrive-sync</td></tr>
+            <tr><td>비딩 이력 관리</td><td>비딩 결과 아카이빙 및 성공/실패 분석</td><td><span class="badge badge-monthly">월간</span></td><td>bidding_archiving.xlsx</td></tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>C. Booking / Lifting / Cancel 관리</h2>
+        <table>
+            <tr><th>업무</th><th>상세</th><th>빈도</th><th>도구</th></tr>
+            <tr><td>Booking Snapshot</td><td>당주/전주 부킹 현황 스냅샷 생성</td><td><span class="badge badge-weekly">주간</span></td><td>/booking-snapshot</td></tr>
+            <tr><td>-3W Booking Dashboard</td><td>3주 전 선박 예약 현황 모니터링</td><td><span class="badge badge-weekly">주간</span></td><td>/3w-dashboard</td></tr>
+            <tr><td>캔슬 비율 분석</td><td>고캔슬 고객 식별 및 위험 모니터링</td><td><span class="badge badge-weekly">주간</span></td><td>Tableau, OBT</td></tr>
+            <tr><td>선복 할당 관리</td><td>BSA 대비 부킹 현황, L/S 관리</td><td><span class="badge badge-adhoc">수시</span></td><td>BSA 데이터</td></tr>
+            <tr><td>BKG vs Lifting 추적</td><td>주차별 부킹 대비 실제 선적 실적 추적</td><td><span class="badge badge-weekly">주간</span></td><td>OBT raw</td></tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>D. 실적 분석 및 예측</h2>
+        <table>
+            <tr><th>업무</th><th>상세</th><th>빈도</th><th>도구</th></tr>
+            <tr><td>CM1/TEU Forecast</td><td>국가/항로별 CM1 TEU 예측 및 목표 수립</td><td><span class="badge badge-monthly">월간</span></td><td>/sea-cm1-forecast</td></tr>
+            <tr><td>목표 분배</td><td>월간 CM1 목표를 MY/ID/SG/US/MX 등 권역별 배분</td><td><span class="badge badge-monthly">월간</span></td><td>generate_cm1_targets.py</td></tr>
+            <tr><td>주차별 CM1 추적</td><td>주간 CM1 실적 vs 목표 갭 분석</td><td><span class="badge badge-weekly">주간</span></td><td>OBT 데이터</td></tr>
+            <tr><td>고객 수익성 분석</td><td>고수익/저수익 고객 세분화, 성장 잠재 고객 식별</td><td><span class="badge badge-monthly">월간</span></td><td>Tableau</td></tr>
+            <tr><td>VSL/VOY 기여도</td><td>서비스/항차별 수익 기여도 파악</td><td><span class="badge badge-monthly">월간</span></td><td>OBT 데이터</td></tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>E. OBT 데이터 관리</h2>
+        <table>
+            <tr><th>업무</th><th>상세</th><th>빈도</th><th>도구</th></tr>
+            <tr><td>OBT Raw 자동수집</td><td>Tableau에서 과거2개월/당월/BL(BSA)/BSA 다운로드</td><td><span class="badge badge-weekly">주간</span></td><td>/obt-update</td></tr>
+            <tr><td>Google Sheets 동기화</td><td>OBT raw → Google Sheets 자동 업데이트</td><td><span class="badge badge-weekly">주간</span></td><td>Google Sheets API</td></tr>
+            <tr><td>데이터 품질 검증</td><td>수집된 데이터 정합성 확인</td><td><span class="badge badge-weekly">주간</span></td><td>Python</td></tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>F. 보고 및 자료 작성</h2>
+        <table>
+            <tr><th>업무</th><th>상세</th><th>빈도</th><th>도구</th></tr>
+            <tr><td>E-Group 주간 대시보드</td><td>주간 경영진 회의용 KPI 대시보드 생성</td><td><span class="badge badge-weekly">주간</span></td><td>/weekly-review</td></tr>
+            <tr><td>월간회의 자료</td><td>월간 실적 리뷰 및 전략 회의 자료</td><td><span class="badge badge-monthly">월간</span></td><td>Google Drive</td></tr>
+            <tr><td>영업회의 자료</td><td>법인별 회의 기록, 성과 리뷰</td><td><span class="badge badge-adhoc">수시</span></td><td>Google Drive</td></tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>G. 시스템 / AI 혁신</h2>
+        <table>
+            <tr><th>업무</th><th>상세</th><th>빈도</th><th>도구</th></tr>
+            <tr><td>자동 입찰 프로그램</td><td>해운 입찰 프로세스 자동화</td><td><span class="badge badge-project">프로젝트</span></td><td>Python/Flask</td></tr>
+            <tr><td>영업활동 관리 시스템</td><td>운임+영업로그 통합 관리</td><td><span class="badge badge-project">프로젝트</span></td><td>Node.js, Netlify</td></tr>
+            <tr><td>권역별 관리 시스템</td><td>지역별 영업 데이터 관리</td><td><span class="badge badge-project">프로젝트</span></td><td>Node.js, React</td></tr>
+            <tr><td>KMTC 항로 수집</td><td>협력사 서비스 항로 웹스크래핑</td><td><span class="badge badge-adhoc">수시</span></td><td>/kmtc-routes</td></tr>
+            <tr><td>운임변화 분석</td><td>운임 트렌드 추출/분석/대시보드</td><td><span class="badge badge-project">프로젝트</span></td><td>Python</td></tr>
+            <tr><td>환율 대시보드</td><td>일별 환율 자동 수집 및 시각화</td><td><span class="badge badge-daily">일간</span></td><td>fetch_exchange.py</td></tr>
+        </table>
+    </div>
+
+    <div class="section">
+        <h2>H. 규정 / 계약 관리</h2>
+        <table>
+            <tr><th>업무</th><th>상세</th><th>빈도</th><th>도구</th></tr>
+            <tr><td>FMC Filing</td><td>미국 운항 관련 FMC filing 관리</td><td><span class="badge badge-adhoc">수시</span></td><td>사내 시스템</td></tr>
+            <tr><td>S/C 관리</td><td>계약번호, SCAC 관리, NVOCC/VOCC 구분</td><td><span class="badge badge-adhoc">수시</span></td><td>사내 시스템</td></tr>
+            <tr><td>AMS Filing</td><td>AMS filing 책임 구분 및 컴플라이언스</td><td><span class="badge badge-adhoc">수시</span></td><td>사내 시스템</td></tr>
+            <tr><td>프로세스 연계 검토</td><td>Booking/B/L/Freight/AMS 연계 로직 검토 및 개선</td><td><span class="badge badge-adhoc">수시</span></td><td>사내 시스템</td></tr>
+        </table>
+    </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     TAB 3: 자동화 도구
+     ═══════════════════════════════════════════════ -->
+<div class="tab-content" id="tab-tools">
+<div class="container">
+
+    <div class="section">
+        <h2>Claude Code 스킬 (즉시 실행)</h2>
+        <div class="skill-grid">
+            <div class="skill-card"><code>/rate-update</code><div class="desc">Google Drive 운임 Excel → rate_db.json 갱신</div></div>
+            <div class="skill-card"><code>/rate-lookup</code><div class="desc">특정 루트 운임 조회</div></div>
+            <div class="skill-card"><code>/rate-compare</code><div class="desc">루트/항구별 운임 비교 리포트</div></div>
+            <div class="skill-card"><code>/rate-dashboard</code><div class="desc">운임 추이 대시보드 서버 실행</div></div>
+            <div class="skill-card"><code>/rfq-fill</code><div class="desc">RFQ 운임 자동입력</div></div>
+            <div class="skill-card"><code>/gdrive-sync</code><div class="desc">Google Drive 비딩 파일 동기화</div></div>
+            <div class="skill-card"><code>/obt-update</code><div class="desc">OBT Raw 데이터 수집 → Google Sheets</div></div>
+            <div class="skill-card"><code>/booking-snapshot</code><div class="desc">Booking Snapshot 생성</div></div>
+            <div class="skill-card"><code>/3w-dashboard</code><div class="desc">-3W Booking Dashboard 생성</div></div>
+            <div class="skill-card"><code>/weekly-review</code><div class="desc">E-Group 주간 회의 대시보드</div></div>
+            <div class="skill-card"><code>/weekly-rate-report</code><div class="desc">주간 운임 변동 리포트 발송</div></div>
+            <div class="skill-card"><code>/sea-cm1-forecast</code><div class="desc">SEA CM1/TEU Forecast</div></div>
+            <div class="skill-card"><code>/rate-db</code><div class="desc">운임 데이터베이스 관리</div></div>
+            <div class="skill-card"><code>/kmtc-routes</code><div class="desc">KMTC 서비스 항로 수집</div></div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>Antigravity 프로젝트 (개발형)</h2>
+        <div class="skill-grid">
+            <div class="skill-card"><code>Automated bidding</code><div class="desc">해운 입찰 자동화 (Python/Flask/pandas)</div></div>
+            <div class="skill-card"><code>Sales activity</code><div class="desc">영업활동 종합 관리 (Node.js/Netlify)</div></div>
+            <div class="skill-card"><code>Regional mgmt</code><div class="desc">권역별 영업 데이터 관리 (Node.js/React)</div></div>
+            <div class="skill-card"><code>운임변화 분석</code><div class="desc">운임 트렌드 분석/대시보드 (Python)</div></div>
+        </div>
+    </div>
+
+    <div class="section">
+        <h2>필요 역량 및 도구 요약</h2>
+        <table>
+            <tr><th>역량 영역</th><th>상세</th><th>활용 도구</th></tr>
+            <tr><td>데이터 분석</td><td>운임, CM1, BSA, 소석률 등 지표 분석</td><td>Tableau, Python, Excel, Google Sheets</td></tr>
+            <tr><td>자동화/개발</td><td>업무 프로세스 자동화, 대시보드 구축</td><td>Python, Node.js, Claude Code, Playwright</td></tr>
+            <tr><td>영업 전략</td><td>시장/고객 동향 분석, 목표 수립</td><td>Tableau, 시장 데이터</td></tr>
+            <tr><td>커뮤니케이션</td><td>법인 협업, 보고서, 프레젠테이션</td><td>Gmail, Google Drive, HTML 대시보드</td></tr>
+            <tr><td>규정 이해</td><td>FMC, AMS, S/C, NVOCC/VOCC</td><td>사내 시스템</td></tr>
+        </table>
+    </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════
+     TAB 4: 전체 문서 (Markdown)
+     ═══════════════════════════════════════════════ -->
+<div class="tab-content" id="tab-markdown">
+<div class="container">
+    <div class="section">
+        <div id="md-viewer"></div>
+    </div>
+</div>
+</div>
+
+<!-- ═══ 스크립트 (body 끝에서 로드) ═══ -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script>
+    // Mermaid 초기화
+    mermaid.initialize({
+        startOnLoad: true,
+        securityLevel: 'loose',
+        theme: 'default',
+        flowchart: {
+            useMaxWidth: true,
+            htmlLabels: true,
+            curve: 'basis',
+            padding: 24,
+            nodeSpacing: 40,
+            rankSpacing: 45,
+            subGraphTitleMargin: { top: 12, bottom: 12 }
+        },
+        themeVariables: {
+            primaryColor: '#dbeafe',
+            primaryTextColor: '#1a202c',
+            primaryBorderColor: '#2d5a87',
+            lineColor: '#64748b',
+            secondaryColor: '#e2e8f0',
+            tertiaryColor: '#f8fafc',
+            fontSize: '18px',
+            fontFamily: 'Segoe UI, -apple-system, BlinkMacSystemFont, sans-serif',
+            clusterBkg: '#f0f5ff',
+            clusterBorder: '#3b82f6',
+            edgeLabelBackground: '#ffffff'
+        }
+    });
+
+    // 탭 전환
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('tab-' + btn.dataset.tab).classList.add('active');
+        });
+    });
+
+    // 앵커 네비 스크롤
+    document.querySelectorAll('.nav a').forEach(link => {
+        link.addEventListener('click', e => {
+            e.preventDefault();
+            const target = document.querySelector(link.getAttribute('href'));
+            if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        });
+    });
+
+    // 앵커 네비 활성 표시
+    const sections = document.querySelectorAll('.section[id]');
+    const navLinks = document.querySelectorAll('.nav a');
+    window.addEventListener('scroll', () => {
+        let current = '';
+        sections.forEach(s => { if (pageYOffset >= s.offsetTop - 100) current = s.id; });
+        navLinks.forEach(l => {
+            l.classList.remove('active');
+            if (l.getAttribute('href') === '#' + current) l.classList.add('active');
+        });
+    });
+
+    // 마크다운 렌더링
+    const mdSource = `# 해외영업 전략 및 수익관리 담당 - 개인 업무 정리
+
+> 작성일: 2026-04-14
+> 담당자: 박준규 (KR SEL)
+> 직무: 해외영업 전략 및 수익관리
+
+---
+
+## 1. 직무 목적
+
+컨테이너 해운사의 글로벌 항로에서 **시장 분석 → 고객 수익성 관리 → 부킹/선적/취소 통제**를 통해 수익을 극대화하고, **데이터 기반 전략 수립과 운영 연계**로 지속 가능한 성장을 도모한다.
+
+---
+
+## 2. 업무 분류 체계 (일일 업무 기준)
+
+### A. 운임(Rate) 관리
+
+| 업무 | 상세 내용 | 빈도 | 관련 도구 |
+|------|----------|------|----------|
+| Freetime 승인 | 고객별 D/F, Detention 기간 승인 요청 처리 | 수시 | 사내 시스템 |
+| Long Idling Storage 감면 | 장기 체화 컨테이너 storage 비용 감면 요청 대응 | 수시 | Gmail |
+| 운임 파일 생성/관리 | SEA/CN_HK 운임 Excel → rate_db.json 갱신 | 주간 | /rate-update |
+| 운임 조회 및 고객 회신 | 고객 RFQ 또는 spot 운임 문의 대응 | 수시 | /rate-lookup |
+| 운임 인상/변동 안내 | GRI/PSS 등 운임 변동 사항 고객 및 내부 공유 | 월간 | 운임인상 대시보드 |
+| 주간 운임 변동 리포트 | 주요 항로별 운임 추이 분석 및 보고서 발송 | 주간 | /weekly-rate-report |
+| 운임 추이 대시보드 관리 | 항로별 운임 트렌드 시각화 및 모니터링 | 상시 | /rate-dashboard |
+
+### B. RFQ/비딩 관리
+
+| 업무 | 상세 내용 | 빈도 | 관련 도구 |
+|------|----------|------|----------|
+| RFQ 수신 및 분석 | 고객 RFQ 파일 수신, 노선/컨테이너타입 추출 | 수시 | Gmail, GDrive |
+| RFQ 운임 자동입력 | RFQ 양식에 현재 운임 자동 매핑 및 입력 | 수시 | /rfq-fill |
+| 비딩 파일 동기화 | Google Drive 비딩 폴더와 로컬 캐시 동기화 | 수시 | /gdrive-sync |
+| 비딩 이력 관리 | 비딩 결과 아카이빙 및 성공/실패 분석 | 월간 | bidding_archiving.xlsx |
+
+### C. Booking / Lifting / Cancel 관리
+
+| 업무 | 상세 내용 | 빈도 | 관련 도구 |
+|------|----------|------|----------|
+| Booking Snapshot 생성 | 당주/전주 부킹 현황 스냅샷 생성 | 주간 | /booking-snapshot |
+| -3W Booking Dashboard | 3주 전 선박 예약 현황 모니터링 | 주간 | /3w-dashboard |
+| 캔슬 비율 분석 | 고캔슬 고객 식별 및 위험 모니터링 | 주간 | Tableau, OBT |
+| 선복 할당 관리 | BSA 대비 부킹 현황, L/S 관리 | 수시 | BSA 데이터 |
+| 부킹 대비 선적 실적 추적 | 주차별 BKG vs Lifting 갭 분석 | 주간 | OBT raw data |
+
+### D. 실적 분석 및 예측 (CM1/수익성)
+
+| 업무 | 상세 내용 | 빈도 | 관련 도구 |
+|------|----------|------|----------|
+| CM1/TEU Forecast | 국가/항로별 CM1 TEU 예측 및 목표 수립 | 월간 | /sea-cm1-forecast |
+| 목표 분배 | 월간 CM1 목표를 MY/ID/SG/US/MX 등 권역별 배분 | 월간 | generate_cm1_targets.py |
+| 주차별 CM1 추적 | 주간 CM1 실적 vs 목표 갭 분석 | 주간 | OBT 데이터 |
+| 고객 수익성 분석 | 고수익 vs 저수익 고객 세분화 | 월간 | Tableau, OBT |
+| VSL/VOY 기여도 분석 | 서비스/항차별 수익 기여도 파악 | 월간 | OBT 데이터 |
+| 소석률 분석 | 선박별 적재율 모니터링 및 최적화 | 주간 | BSA/Booking 데이터 |
+
+### E. OBT 데이터 관리
+
+| 업무 | 상세 내용 | 빈도 | 관련 도구 |
+|------|----------|------|----------|
+| OBT Raw 데이터 자동 수집 | Tableau에서 과거2개월/당월/BL(BSA)/BSA 다운로드 | 주간 | /obt-update |
+| Google Sheets 업데이트 | OBT raw → Google Sheets 자동 동기화 | 주간 | Google Sheets API |
+| 데이터 품질 검증 | 수집된 데이터의 정합성 확인 | 주간 | Python |
+
+### F. 보고 및 자료 작성
+
+| 업무 | 상세 내용 | 빈도 | 관련 도구 |
+|------|----------|------|----------|
+| E-Group 주간 회의 대시보드 | 주간 경영진 회의용 KPI 대시보드 생성 | 주간 | /weekly-review |
+| 월간회의 자료 | 월간 실적 리뷰 및 전략 회의 자료 | 월간 | Google Drive |
+| 영업회의 자료 | 법인별 회의 기록, 성과 리뷰 | 수시 | Google Drive |
+
+### G. 시스템/AI 혁신
+
+| 업무 | 상세 내용 | 빈도 | 관련 도구 |
+|------|----------|------|----------|
+| 자동 입찰 프로그램 | 해운 입찰 프로세스 자동화 | 프로젝트 | Python/Flask |
+| 영업활동 관리 시스템 | 운임+영업로그 통합 관리 | 프로젝트 | Node.js, Netlify |
+| 권역별 관리 시스템 | 지역별 영업 데이터 관리 | 프로젝트 | Node.js, React |
+| KMTC 항로 수집 | 협력사 서비스 항로 웹스크래핑 | 수시 | /kmtc-routes |
+| 운임변화 분석 | 운임 트렌드 추출/분석/대시보드 | 프로젝트 | Python |
+| 환율 대시보드 | 일별 환율 자동 수집 및 시각화 | 일간 | fetch_exchange.py |
+| 운임 DB 관리 | rate_db.json 유지보수 및 갱신 | 상시 | /rate-db |
+| 운임 비교 리포트 | 루트/항구별 운임 비교 | 수시 | /rate-compare |
+
+### H. 규정/계약 관리
+
+| 업무 | 상세 내용 | 빈도 | 관련 도구 |
+|------|----------|------|----------|
+| FMC Filing 요건 준수 | 미국 운항 관련 FMC filing 관리 | 수시 | 사내 시스템 |
+| S/C 관리 | 계약번호, SCAC 관리 | 수시 | 사내 시스템 |
+| AMS Filing 책임 구분 | NVOCC/VOCC 구분, 컴플라이언스 확보 | 수시 | 사내 시스템 |
+| 프로세스 연계 검토 | Booking/B/L/Freight/AMS 연계 로직 검토 | 수시 | 사내 시스템 |
+
+---
+
+## 3. 업무 흐름도 (Workflow)
+
+### 3-1. 일간 업무 흐름
+
+\`\`\`
+[아침] 메일 확인 및 긴급 건 처리
+  ├── Freetime 승인 요청 처리
+  ├── Long Idling Storage 감면 요청 대응
+  ├── 고객 운임 문의/RFQ 수신 확인
+  └── 캔슬/부킹 변동 알림 확인
+       ↓
+[오전] 운임 및 부킹 관리
+  ├── Spot 운임 조회 및 고객 회신
+  ├── RFQ 운임 입력 (rfq-fill)
+  ├── 부킹 현황 모니터링
+  └── 환율 데이터 업데이트 확인
+       ↓
+[오후] 분석 및 보고
+  ├── CM1/소석률 데이터 확인
+  ├── 캔슬 패턴 모니터링
+  ├── 필요시 회의 자료 업데이트
+  └── 시장 동향 체크
+       ↓
+[마감] 정리 및 익일 준비
+  ├── 미처리 건 정리
+  ├── 주간/월간 리포트 데이터 축적
+  └── 익일 주요 일정 확인
+\`\`\`
+
+### 3-2. 주간 업무 흐름
+
+\`\`\`
+[월] 주간 시작
+  ├── 전주 실적 집계 (BKG/Lifting/Cancel)
+  ├── OBT Raw 데이터 자동 수집 (obt-update)
+  └── Booking Snapshot 생성
+       ↓
+[화~수] 분석 및 전략
+  ├── 주간 운임 변동 리포트 생성/발송
+  ├── -3W Booking Dashboard 업데이트
+  ├── 주차별 CM1 추적 및 갭 분석
+  └── 고캔슬 고객 모니터링
+       ↓
+[목] 보고
+  ├── E-Group 주간 회의 대시보드 생성
+  ├── 주간 회의 참석 및 보고
+  └── 액션 아이템 정리
+       ↓
+[금] 마감 및 차주 준비
+  ├── 주간 KPI 마감
+  ├── 운임 데이터베이스 갱신 확인
+  └── 차주 예상 이슈 정리
+\`\`\`
+
+### 3-3. 월간 업무 흐름
+
+\`\`\`
+[월초]
+  ├── 전월 실적 마감 (CM1/TEU 실적 vs 목표)
+  ├── 월간 CM1 목표 분배 (MY/ID/SG/US/MX)
+  ├── CM1/TEU Forecast 수립
+  └── 운임 인상/변동 안내 발송
+       ↓
+[월중]
+  ├── 고객 수익성 분석 (고수익/저수익 세분화)
+  ├── VSL/VOY 기여도 분석
+  ├── RFQ/비딩 결과 분석
+  └── 시장 동향 리포트 작성
+       ↓
+[월말]
+  ├── 월간회의 자료 작성
+  ├── 익월 운임 전략 수립
+  ├── BSA 대비 실적 리뷰
+  └── 시스템 개선 사항 정리
+\`\`\`
+
+---
+
+## 4. 자동화 도구 맵
+
+### Claude Code 스킬 (즉시 실행 가능)
+
+| 스킬 | 기능 | 주기 |
+|------|------|------|
+| /rate-update | Google Drive에서 운임 Excel → rate_db.json 갱신 | 주간 |
+| /rate-lookup | 운임 조회 | 수시 |
+| /rate-compare | 루트/항구별 운임 비교 리포트 | 수시 |
+| /rate-dashboard | 운임 추이 대시보드 | 수시 |
+| /rfq-fill | RFQ 운임 자동입력 | 수시 |
+| /gdrive-sync | Google Drive 비딩 파일 동기화 | 수시 |
+| /obt-update | OBT Raw 데이터 수집 → Google Sheets | 주간 |
+| /booking-snapshot | Booking Snapshot 생성 | 주간 |
+| /3w-dashboard | -3W Booking Dashboard 생성 | 주간 |
+| /weekly-review | E-Group 주간 회의 대시보드 | 주간 |
+| /weekly-rate-report | 주간 운임 변동 리포트 발송 | 주간 |
+| /sea-cm1-forecast | SEA CM1/TEU Forecast | 월간 |
+| /rate-db | 운임 데이터베이스 관리 | 상시 |
+| /kmtc-routes | KMTC 서비스 항로 수집 | 수시 |
+
+### Antigravity 프로젝트 (개발 중/완료)
+
+| 프로젝트 | 기능 | 기술 스택 |
+|----------|------|-----------|
+| Automated bidding program | 해운 입찰 자동화 | Python, Flask, pandas |
+| Automated bidding매핑 | 운임 매핑/조회 | Python |
+| Sales activity program | 영업활동 종합 관리 | Node.js, Google Sheets API, Netlify |
+| regional management | 권역별 영업 데이터 관리 | Node.js, React |
+| 운임변화 분석 | 운임 트렌드 분석/대시보드 | Python |
+
+---
+
+## 5. 보고 라인 및 협업
+
+\`\`\`
+영업본부장 / 해외영업팀장
+        │
+        ├── 해외영업 전략 및 수익관리 (본인)
+        │       ├── 동남아 담당 (MY/ID/SG)
+        │       └── 미주 담당 (US/MX)
+        │
+        ├── 운영팀 ←→ 선복 할당, BSA 관리
+        ├── 가격팀 ←→ 운임 책정, S/C 관리
+        ├── IT팀 ←→ 시스템 개선, 자동화
+        └── 해외 법인 ←→ 현지 영업 실행
+\`\`\`
+
+**정기 회의**: 주간 E-Group 회의 | 월간 실적 리뷰 | 연간 전략회의 | 시스템 개선 TFT`;
+
+    document.getElementById('md-viewer').innerHTML = marked.parse(mdSource);
+</script>
+
+</body>
+</html>
