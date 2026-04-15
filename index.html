@@ -368,6 +368,8 @@ flowchart TD
         H4["프로세스 연계 검토"]
         H5["미국 S/C 관리"]
         H6["운영 변경사항 공유"]
+        H7["DPI Filing Audit"]
+        H8["DPI Filing 관리"]
     end
                 </div></div>
             </div>
@@ -393,6 +395,7 @@ flowchart LR
     D1 --> F4["F. 인센티브 평가"]
     G5["G. AI Agent"] --> D3
     H5["H. 미국 S/C"] --> A3
+    H5 --> H7["H. DPI Filing Audit"]
         </div></div>
     </div>
 
@@ -478,12 +481,14 @@ flowchart TD
 flowchart TD
     subgraph EARLY["월초 (1~5일)"]
         E1["전월 실적 마감"]
+        E8["DPI Filing Audit"]
         E6["구간별 월간 목표 설정"]
         E7["업체별 목표 작업"]
         E2["CM1 목표 분배 MY/ID/SG/US/MX"]
         E3["CM1/TEU Forecast"]
         E4["운임 인상/변동 안내"]
         E5["분기/반기 목표 설정"]
+        E1 --> E8
         E1 --> E6 --> E7 --> E2 --> E3 --> E4
         E1 --> E5
     end
