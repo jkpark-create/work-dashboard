@@ -250,7 +250,7 @@
 
 <div class="header">
     <h1>해외영업 전략 및 수익관리 담당</h1>
-    <p>개인 업무 정리 | 박준규 (KR SEL) | 2026-04-21</p>
+    <p>개인 업무 정리 | 박준규 (KR SEL) | 2026-04-22</p>
 </div>
 
 <!-- ═══ 탭 바 ═══ -->
@@ -378,6 +378,19 @@ flowchart TD
     end
                 </div></div>
             </div>
+            <div class="overview-card">
+                <div class="chart-wrap"><div class="mermaid">
+flowchart TD
+    subgraph J["J. 글로벌 어카운트 관리"]
+        J1["GEODIS Template / Master File"]
+        J2["Ben Line Target Rate / Carrier Offer"]
+        J3["DAELIM 분기별 KMTC Rate"]
+        J4["RFQ 자동입력 / 검증"]
+        J5["GLOBAL AC 성과 / 타겟"]
+        J6["해외법인/가격/운영 커뮤니케이션"]
+    end
+                </div></div>
+            </div>
         </div>
 
         <h3>업무 간 연결 관계</h3>
@@ -407,6 +420,13 @@ flowchart LR
     G9["G. EFC/LSS 대시보드"] --> H9
     H9 --> F1
     G10["G. 문서 지식화"] --> F2
+    J1["J. GEODIS"] --> B2
+    J2["J. Ben Line"] --> B2
+    J3["J. DAELIM"] --> B2
+    A3 --> J4["J. GA RFQ 검증"]
+    J5["J. GLOBAL AC 성과"] --> D4
+    J5 --> F1
+    J6["J. GA 커뮤니케이션"] --> F3
     H5["H. 미국 S/C"] --> A3
     H5 --> H7["H. DPI Filing Audit"]
         </div></div>
@@ -423,8 +443,9 @@ flowchart LR
         M2 -->|"No"| M4["운임 문의 확인"]
         M3 --> M4
         M4 --> M5["RFQ 수신 확인 (Google Drive)"]
-        M5 --> M6["Spot 운임 조회/회신"]
-        M6 --> M7["RFQ 자동입력"]
+        M5 --> M8["GEODIS/Ben Line/DAELIM 요청 확인"]
+        M8 --> M6["Spot 운임 조회/회신"]
+        M6 --> M7["RFQ 자동입력/GA 템플릿 매핑"]
     end
 
     subgraph PM["오후"]
@@ -432,7 +453,8 @@ flowchart LR
         P2 --> P3["캔슬 패턴 체크"]
         P3 --> P7["운임 대시보드/환율 확인"]
         P7 --> P8["EFC/LSS Gap 확인"]
-        P8 --> P4{"회의 예정?"}
+        P8 --> P9["글로벌 어카운트 성과/타겟 Follow-up"]
+        P9 --> P4{"회의 예정?"}
         P4 -->|"Yes"| P5["회의 자료 업데이트"]
         P4 -->|"No"| P6["시장/자동화 로그 체크"]
         P5 --> P6
@@ -466,17 +488,19 @@ flowchart TD
         T5["운임 파일 갱신 rate_db.json"]
         T2["-3W Booking Dashboard"]
         T7["영업사원×도착국가 리스크"]
+        T8["글로벌 어카운트 RFQ/Award/Lost"]
         T3["주차별 CM1 추적"]
         T6["BKG vs Lifting / 소석률 분석"]
         T4["고캔슬 고객 모니터링"]
-        T1 --> T5 --> T2 --> T7 --> T3 --> T6 --> T4
+        T1 --> T5 --> T2 --> T7 --> T8 --> T3 --> T6 --> T4
     end
 
     subgraph THU["목요일 - 보고"]
         H1["E-Group 주간 대시보드"]
+        H4["GEODIS/Ben Line/DAELIM 주요 이슈"]
         H2["주간 회의 참석/보고"]
         H3["액션 아이템 정리"]
-        H1 --> H2 --> H3
+        H1 --> H4 --> H2 --> H3
     end
 
     subgraph FRI["금요일 - 마감"]
@@ -504,9 +528,10 @@ flowchart TD
         E2["CM1 목표 분배 MY/ID/SG/US/MX"]
         E3["CM1/TEU Forecast"]
         E4["운임 인상/변동 안내"]
+        E9["DAELIM 분기/월별 운임 갱신 일정"]
         E5["분기/반기 목표 설정"]
         E1 --> E8
-        E1 --> E6 --> E7 --> E2 --> E3 --> E4
+        E1 --> E6 --> E7 --> E2 --> E3 --> E4 --> E9
         E1 --> E5
     end
 
@@ -515,11 +540,12 @@ flowchart TD
         M6["고수익 고객 발굴"]
         M2["VSL/VOY 기여도 분석"]
         M3["RFQ/비딩 결과 및 이력 관리"]
+        M9["GEODIS/Ben Line 템플릿별 제안 현황"]
         M4["시장 동향 리포트"]
         M5["인센티브 평가 (분기/반기)"]
         M7["Salesman-wise 실적 관리"]
         M8["EFC/LSS Gap 월중 추세"]
-        M1 --> M6 --> M2 --> M3 --> M4 --> M8
+        M1 --> M6 --> M2 --> M3 --> M9 --> M4 --> M8
         M1 --> M5
         M1 --> M7
     end
@@ -552,6 +578,7 @@ flowchart TD
         I4[("KMTC 웹사이트")]
         I5[("환율 API")]
         I6[("ICC DynamicList EFC/LSS")]
+        I7[("Google Drive Global Account RFQ")]
     end
     subgraph PROC["자동화 처리"]
         P1["obt-update"]
@@ -562,6 +589,7 @@ flowchart TD
         P6["cm1_targets"]
         P7["icc_daily_update"]
         P8["Claude Code/MCP"]
+        P9["gdrive-sync/rfq_parser"]
     end
     subgraph DB["데이터 저장"]
         S1[("Google Sheets")]
@@ -571,6 +599,7 @@ flowchart TD
         S5[("환율 CSV")]
         S6[("EFC/LSS data.json")]
         S7[("운영 문서")]
+        S8[("RFQ Rate Database / Bidding Archive")]
     end
     subgraph OUT["산출물"]
         O1["E-Group 주간 대시보드"]
@@ -581,6 +610,7 @@ flowchart TD
         O6["월간회의 자료"]
         O8["EFC/LSS Dashboard"]
         O9["GitHub Pages 업무 대시보드"]
+        O10["Global Account 업무 현황"]
     end
     I1 --> P1 --> S1
     I2 --> P2 --> S2
@@ -588,7 +618,8 @@ flowchart TD
     I4 --> P4 --> S4
     I5 --> P5 --> S5
     I6 --> P7 --> S6
-    P8 --> P1 & P2 & P3 & P4 & P6 & P7
+    I7 --> P9 --> S8
+    P8 --> P1 & P2 & P3 & P4 & P6 & P7 & P9
     S1 --> P6 --> O5
     S2 --> P3
     S1 --> O1
@@ -597,10 +628,13 @@ flowchart TD
     S2 --> O4
     S6 --> O8
     S7 --> O9
+    S8 --> O10
+    S8 --> B4["비딩 이력 관리"]
     O1 --> O6
     O2 --> O6
     O5 --> O6
     O8 --> O6
+    O10 --> O6
     O3 --> S7
     O8 --> S7
         </div></div>
@@ -617,10 +651,12 @@ flowchart LR
     I4[("KMTC 웹사이트 항로정보")] -->|"스크래핑"| P4["kmtc-routes"]
     I5[("환율 API")] -->|"API 호출"| P5["fetch_exchange.py"]
     I6[("ICC DynamicList")] -->|"다운로드"| P7["icc_daily_update.py"]
+    I7[("GDrive GEODIS/Ben Line/DAELIM RFQ")] -->|"동기화"| P9["gdrive-sync/rfq_parser"]
     CC["Claude Code commands/skills/MCP"] --> P1
     CC --> P2
     CC --> P3
     CC --> P7
+    CC --> P9
         </div></div>
 
         <h3>Step 2. 처리 &rarr; 데이터 저장</h3>
@@ -632,6 +668,7 @@ flowchart LR
     P4["kmtc-routes"] -->|"저장"| S4[("kmtc_routes.xlsx")]
     P5["fetch_exchange"] -->|"적재"| S5[("환율 CSV")]
     P7["icc_daily_update"] -->|"갱신"| S6[("EFC/LSS data.json")]
+    P9["GA RFQ 처리"] -->|"축적"| S8[("RFQ Rate Database / Bidding Archive")]
     S1 -->|"목표산출"| P6["generate_cm1_targets"]
     S2 -->|"운임매핑"| P3b["rfq-fill"]
     Docs["DEVELOPMENT/guide/docs"] -->|"지식화"| S7[("운영 문서/NotebookLM")]
@@ -648,10 +685,12 @@ flowchart LR
     S2 --> O7["운임 비교 리포트"]
     S6[("EFC/LSS data.json")] --> O8["EFC/LSS Dashboard"]
     S7[("운영 문서")] --> O9["GitHub Pages 업무 대시보드"]
+    S8[("RFQ Rate Database")] --> O10["Global Account 업무 현황"]
     O1 --> O6["월간회의 자료"]
     O2 --> O6
     O5 --> O6
     O8 --> O6
+    O10 --> O6
         </div></div>
 
         </details>
@@ -670,6 +709,7 @@ flowchart LR
         ├── 가격팀 ←→ 운임 책정, S/C 관리
         ├── 정산/운영팀 ←→ EFC/LSS 징수 Gap 확인 및 후속 조치
         ├── IT팀 ←→ 시스템 개선, 자동화, GitHub Pages 배포
+        ├── 글로벌 어카운트/포워더 ←→ GEODIS, Ben Line, DAELIM RFQ 및 성과 Follow-up
         └── 해외 법인 ←→ 현지 영업 실행</div>
 
         <h3>정기 회의</h3>
@@ -677,6 +717,7 @@ flowchart LR
             <tr><th>회의</th><th>주기</th><th>주요 안건</th></tr>
             <tr><td>E-Group 주간 회의</td><td><span class="badge badge-weekly">주간</span></td><td>주간 KPI, 운임 동향, 부킹 현황</td></tr>
             <tr><td>월간 실적 리뷰</td><td><span class="badge badge-monthly">월간</span></td><td>CM1/TEU 실적, 목표 달성률, 시장 분석</td></tr>
+            <tr><td>글로벌 어카운트 Follow-up</td><td><span class="badge badge-adhoc">수시</span></td><td>GEODIS, Ben Line, DAELIM RFQ/Award/Lost 및 주요 이슈</td></tr>
             <tr><td>연간 전략회의</td><td>연간</td><td>연간 목표 수립, 항로 전략, 투자 계획</td></tr>
             <tr><td>시스템 개선 TFT</td><td><span class="badge badge-adhoc">수시</span></td><td>프로세스 개선, 자동화 과제</td></tr>
             <tr><td>자동화/대시보드 운영 점검</td><td><span class="badge badge-adhoc">수시</span></td><td>Claude Code 산출물, 배포, 데이터 갱신 상태</td></tr>
@@ -823,6 +864,20 @@ flowchart LR
         </table>
     </div>
 
+    <div class="section">
+        <h2>J. 글로벌 어카운트 관리 (GEODIS / Ben Line / DAELIM)</h2>
+        <table>
+            <tr><th>업무</th><th>상세</th><th>빈도</th><th>도구</th></tr>
+            <tr><td>글로벌 어카운트 RFQ/RFI 수신 및 분류</td><td>GEODIS, Ben Line, DAELIM 관련 입찰·견적 파일 수신, 고객/화주/기간/라운드 구분</td><td><span class="badge badge-adhoc">수시</span></td><td>Gmail, Google Drive, Project-Q</td></tr>
+            <tr><td>GEODIS 어카운트 관리</td><td>Carrier Template, Master File, 미팅 기록 기반 글로벌 화주별 운임 제안 및 후속 관리</td><td><span class="badge badge-project">수시/프로젝트</span></td><td>Bidding/Geodis, rfq_parser</td></tr>
+            <tr><td>Ben Line 어카운트 관리</td><td>SHARP, ATC Yokohama Tires, Intra-Asia, DG Filtering 등 RFQ별 Target Rate/Carrier Offer 검토</td><td><span class="badge badge-project">수시/프로젝트</span></td><td>Bidding/Ben line, rfq_parser</td></tr>
+            <tr><td>DAELIM 어카운트 관리</td><td>분기별 KMTC Rate 및 FCL Freight Rates Template 기준 운임 갱신/제안 관리</td><td><span class="badge badge-monthly">분기/수시</span></td><td>Bidding/DAELIM, DAELIM template</td></tr>
+            <tr><td>글로벌 어카운트 운임 자동입력/검증</td><td>고객 템플릿별 POL/POD, 장비, OCF/Carrier Offer 매핑 및 오류 검증</td><td><span class="badge badge-adhoc">수시</span></td><td>rfq-fill, gdrive-sync, RFQ Rate Database</td></tr>
+            <tr><td>글로벌 어카운트 성과/타겟 추적</td><td>RFQ 참여 결과, Award/Lost, 물량/CM1, 타겟 고객 현황 모니터링</td><td><span class="badge badge-weekly">주간/월간</span></td><td>GLOBAL AC Performance, Sales Targeting, Tableau/OBT</td></tr>
+            <tr><td>글로벌 어카운트 커뮤니케이션</td><td>해외법인/포워더/내부 가격·운영팀과 운임, 유효기간, 서비스 가능 여부 조율</td><td><span class="badge badge-adhoc">수시</span></td><td>Gmail, Google Drive, 회의록</td></tr>
+        </table>
+    </div>
+
 </div>
 </div>
 
@@ -840,7 +895,7 @@ flowchart LR
             <div class="skill-card"><code>/rate-compare</code><div class="desc">루트/항구별 운임 비교 리포트</div></div>
             <div class="skill-card"><code>/rate-dashboard</code><div class="desc">운임 추이 대시보드 서버 실행</div></div>
             <div class="skill-card"><code>/rfq-fill</code><div class="desc">RFQ 운임 자동입력</div></div>
-            <div class="skill-card"><code>/gdrive-sync</code><div class="desc">Google Drive 비딩 파일 동기화</div></div>
+            <div class="skill-card"><code>/gdrive-sync</code><div class="desc">Google Drive 비딩 파일 및 글로벌 어카운트 RFQ 동기화</div></div>
             <div class="skill-card"><code>/obt-update</code><div class="desc">OBT Raw 데이터 수집 → Google Sheets</div></div>
             <div class="skill-card"><code>/booking-snapshot</code><div class="desc">Booking Snapshot 생성</div></div>
             <div class="skill-card"><code>/3w-dashboard</code><div class="desc">-3W Booking Dashboard 생성/배포</div></div>
@@ -857,7 +912,7 @@ flowchart LR
         <div class="skill-grid">
             <div class="skill-card"><code>.claude/commands</code><div class="desc">반복 업무를 slash command로 표준화</div></div>
             <div class="skill-card"><code>.claude/skills</code><div class="desc">운임/OBT/KMTC 수집 절차를 재사용 가능한 스킬로 관리</div></div>
-            <div class="skill-card"><code>Google Drive/Gmail MCP</code><div class="desc">Drive, Sheets, Gmail 인증 기반 파일 동기화와 알림 처리</div></div>
+            <div class="skill-card"><code>Google Drive/Gmail MCP</code><div class="desc">글로벌 어카운트 RFQ 확인, 파일 동기화, Sheets/Gmail 처리</div></div>
             <div class="skill-card"><code>Playwright/Tableau</code><div class="desc">Tableau·ICC 화면 데이터 다운로드 자동화</div></div>
             <div class="skill-card"><code>GitHub Pages</code><div class="desc">정적 HTML/JSON 대시보드 배포 URL 운영</div></div>
             <div class="skill-card"><code>NotebookLM</code><div class="desc">개발 문서·가이드·변경 이력 기반 질의/요약</div></div>
@@ -875,7 +930,7 @@ flowchart LR
             <div class="skill-card"><code>-3W bkg dashboard</code><div class="desc">WOS-3 부킹/실선적/캔슬/BSA/수익성 대시보드</div></div>
             <div class="skill-card"><code>weekly meeting</code><div class="desc">E-Group 주간 회의 대시보드와 발표문 생성</div></div>
             <div class="skill-card"><code>obt raw automation</code><div class="desc">OBT Raw 4종을 Google Sheets로 동기화</div></div>
-            <div class="skill-card"><code>Project-Q</code><div class="desc">RFQ 파싱, 운임 자동입력, 비딩 파일 동기화</div></div>
+            <div class="skill-card"><code>Project-Q</code><div class="desc">GEODIS/Ben Line/DAELIM 파서, RFQ 자동입력, 비딩 파일 동기화</div></div>
             <div class="skill-card"><code>organizing rate file</code><div class="desc">KMTC 운임 DB, 추이 대시보드, 주간 운임 리포트</div></div>
             <div class="skill-card"><code>목표분배</code><div class="desc">국가/권역별 CM1 목표 분배</div></div>
             <div class="skill-card"><code>Apr 운임인상</code><div class="desc">GRI/PSS 등 운임 인상 안내 대시보드</div></div>
@@ -889,6 +944,7 @@ flowchart LR
             <tr><td>데이터 분석</td><td>운임, CM1, BSA, 소석률 등 지표 분석</td><td>Tableau, Python, Excel, Google Sheets</td></tr>
             <tr><td>자동화/개발</td><td>업무 프로세스 자동화, 대시보드 구축, 배포 운영</td><td>Python, Node.js, Claude Code, Playwright, GitHub Pages</td></tr>
             <tr><td>영업 전략</td><td>시장/고객 동향 분석, 목표 수립</td><td>Tableau, 시장 데이터</td></tr>
+            <tr><td>글로벌 어카운트 관리</td><td>GEODIS, Ben Line, DAELIM RFQ/성과/타겟 관리</td><td>Gmail, Google Drive, Project-Q, RFQ Rate Database</td></tr>
             <tr><td>커뮤니케이션</td><td>법인 협업, 보고서, 프레젠테이션, 운영 가이드</td><td>Gmail, Google Drive, HTML 대시보드, NotebookLM</td></tr>
             <tr><td>규정 이해</td><td>FMC, AMS, S/C, NVOCC/VOCC</td><td>사내 시스템</td></tr>
         </table>
@@ -975,7 +1031,7 @@ flowchart LR
     // 마크다운 렌더링
     const mdSource = `# 해외영업 전략 및 수익관리 담당 - 개인 업무 정리
 
-> 작성일: 2026-04-21  
+> 작성일: 2026-04-22  
 > 담당자: 박준규 (KR SEL)  
 > 직무: 해외영업 전략 및 수익관리
 
@@ -1108,6 +1164,18 @@ flowchart LR
 
 > Tableau 서버: tableau.ekmtc.com → 모음 → Q
 
+### J. 글로벌 어카운트 관리 (GEODIS / Ben Line / DAELIM)
+
+| 업무 | 상세 내용 | 빈도 | 관련 도구/시스템 |
+|------|----------|------|-----------------|
+| 글로벌 어카운트 RFQ/RFI 수신 및 분류 | GEODIS, Ben Line, DAELIM 관련 입찰·견적 파일 수신, 고객/화주/기간/라운드 구분 | 수시 | Gmail, Google Drive, Project-Q |
+| GEODIS 어카운트 관리 | Carrier Template, Master File, 미팅 기록 기반 글로벌 화주별 운임 제안 및 후속 관리 | 수시/프로젝트 | Bidding/Geodis, Geodis meeting, rfq_parser(geodis/geodis_master) |
+| Ben Line 어카운트 관리 | SHARP, ATC Yokohama Tires, Intra-Asia, DG Filtering 등 RFQ별 Target Rate/Carrier Offer 검토 | 수시/프로젝트 | Bidding/Ben line, rfq_parser(benline) |
+| DAELIM 어카운트 관리 | 분기별 KMTC Rate 및 FCL Freight Rates Template 기준 운임 갱신/제안 관리 | 분기/수시 | Bidding/DAELIM, DAELIM template, rfq_parser(daelim) |
+| 글로벌 어카운트 운임 자동입력/검증 | 고객 템플릿별 POL/POD, 장비, OCF/Carrier Offer 매핑 및 오류 검증 | 수시 | rfq-fill, gdrive-sync, RFQ Rate Database |
+| 글로벌 어카운트 성과/타겟 추적 | RFQ 참여 결과, Award/Lost, 물량/CM1, 타겟 고객 현황 모니터링 | 주간/월간 | GLOBAL AC Performance, Sales Targeting, Tableau/OBT |
+| 글로벌 어카운트 커뮤니케이션 | 해외법인/포워더/내부 가격·운영팀과 운임, 유효기간, 서비스 가능 여부 조율 | 수시 | Gmail, Google Drive, 회의록 |
+
 ---
 
 ## 3. 업무 흐름도 (Workflow)
@@ -1119,11 +1187,13 @@ flowchart LR
   ├── Freetime 승인 요청 처리
   ├── Long Idling Storage 감면 요청 대응
   ├── 고객 운임 문의/RFQ 수신 확인
+  ├── GEODIS/Ben Line/DAELIM 글로벌 어카운트 요청 확인
   └── 캔슬/부킹 변동 알림 확인
        ↓
 [오전] 운임 및 부킹 관리
   ├── Spot 운임 조회 및 고객 회신
   ├── RFQ 운임 입력 (rfq-fill)
+  ├── 글로벌 어카운트 RFQ 템플릿/운임 매핑 확인
   ├── 부킹 현황 모니터링
   └── 환율 데이터 업데이트 확인
        ↓
@@ -1131,6 +1201,7 @@ flowchart LR
   ├── CM1/소석률 데이터 확인
   ├── 캔슬 패턴 모니터링
   ├── EFC/LSS 징수율 Gap 확인
+  ├── 글로벌 어카운트 성과/타겟 Follow-up
   ├── 필요시 회의 자료 업데이트
   └── 시장 동향 및 자동화 로그 체크
        ↓
@@ -1153,11 +1224,13 @@ flowchart LR
   ├── 주간 운임 변동 리포트 생성/발송
   ├── -3W Booking Dashboard 업데이트
   ├── 영업사원×도착국가 리스크 확인
+  ├── 글로벌 어카운트 RFQ/Award/Lost 현황 점검
   ├── 주차별 CM1 추적 및 갭 분석
   └── 고캔슬 고객 모니터링
        ↓
 [목] 보고
   ├── E-Group 주간 회의 대시보드 생성
+  ├── GEODIS/Ben Line/DAELIM 주요 이슈 반영
   ├── 주간 회의 참석 및 보고
   └── 액션 아이템 정리
        ↓
@@ -1176,12 +1249,14 @@ flowchart LR
   ├── 월간 CM1 목표 분배 (MY/ID/SG/US/MX)
   ├── CM1/TEU Forecast 수립
   ├── 운임 인상/변동 안내 발송
+  ├── DAELIM 분기/월별 운임 갱신 일정 확인
   └── 분기/반기 목표 설정 및 예산 수립 (해당 월)
        ↓
 [월중]
   ├── 고객 수익성 분석 (고수익/저수익 세분화)
   ├── VSL/VOY 기여도 분석
   ├── RFQ/비딩 결과 분석
+  ├── GEODIS/Ben Line 입찰 템플릿별 운임 제안 현황 정리
   ├── 시장 동향 리포트 작성
   ├── EFC/LSS 징수 Gap 월중 추세 확인
   └── 인센티브 평가 데이터 취합 (분기/반기)
@@ -1273,6 +1348,15 @@ flowchart TB
             H4[프로세스 연계 검토]
             H5[EFC/LSS 징수율 모니터링]
         end
+
+        subgraph J["J. 글로벌 어카운트"]
+            J1[GEODIS Template/Master File]
+            J2[Ben Line Target Rate/Carrier Offer]
+            J3[DAELIM 분기별 KMTC Rate]
+            J4[RFQ 자동입력/검증]
+            J5[GLOBAL AC 성과/타겟 추적]
+            J6[해외법인/가격/운영 커뮤니케이션]
+        end
     end
     
     %% 데이터 흐름
@@ -1281,6 +1365,11 @@ flowchart TB
     A3 --> A6
     B1 --> B2
     B2 --> B4
+    J1 --> B1
+    J2 --> B1
+    J3 --> B1
+    J4 --> B2
+    A3 --> J4
     E1 --> E2
     E2 --> D3
     E2 --> C1
@@ -1296,6 +1385,9 @@ flowchart TB
     G8 --> E1
     G10 --> H5
     H5 --> F1
+    J5 --> D4
+    J5 --> F1
+    J6 --> F3
     
     %% 보고 연결
     D3 --> F1
@@ -1348,6 +1440,7 @@ flowchart TD
         I4[(KMTC 웹사이트<br/>항로정보)]
         I5[(환율 API)]
         I6[(ICC DynamicList<br/>EFC/LSS)]
+        I7[(Google Drive<br/>Global Account RFQ)]
     end
     
     subgraph PROCESS["처리/자동화"]
@@ -1359,6 +1452,7 @@ flowchart TD
         P6[generate_cm1_targets.py<br/>목표 분배]
         P7[icc_daily_update.py<br/>EFC/LSS 갱신]
         P8[Claude Code<br/>commands/skills/MCP]
+        P9[gdrive-sync/rfq_parser<br/>GA RFQ 처리]
     end
     
     subgraph STORE["데이터 저장"]
@@ -1369,6 +1463,7 @@ flowchart TD
         S5[(환율 CSV)]
         S6[(EFC/LSS data.json)]
         S7[(개발/가이드 문서)]
+        S8[(RFQ Rate Database<br/>Bidding Archive)]
     end
     
     subgraph OUTPUT["산출물"]
@@ -1381,6 +1476,7 @@ flowchart TD
         O7[운임 비교 리포트]
         O8[EFC/LSS Collection Dashboard]
         O9[GitHub Pages 업무 대시보드]
+        O10[Global Account<br/>업무 현황]
     end
     
     I1 --> P1 --> S1
@@ -1389,16 +1485,20 @@ flowchart TD
     I4 --> P4 --> S4
     I5 --> P5 --> S5
     I6 --> P7 --> S6
+    I7 --> P9 --> S8
     P8 --> P1 & P2 & P3 & P4 & P6 & P7
+    P8 --> P9
     
     S1 --> O1 & O3 & O5
     S2 --> O2 & O4 & O7
     S6 --> O8
     S7 --> O9
+    S8 --> O10
+    S8 --> B4
     S1 --> P6 --> O5
     S2 --> P3
     
-    O1 & O2 & O3 & O4 & O5 & O8 --> O6
+    O1 & O2 & O3 & O4 & O5 & O8 & O10 --> O6
     O3 & O8 --> S7
 \`\`\`
 
@@ -1414,7 +1514,7 @@ flowchart TD
 | \`/rate-compare\` | 루트/항구별 운임 비교 리포트 | 수시 |
 | \`/rate-dashboard\` | 운임 추이 대시보드 | 수시 |
 | \`/rfq-fill\` | RFQ 운임 자동입력 | 수시 |
-| \`/gdrive-sync\` | Google Drive 비딩 파일 동기화 | 수시 |
+| \`/gdrive-sync\` | Google Drive 비딩 파일 및 글로벌 어카운트 RFQ 동기화 | 수시 |
 | \`/obt-update\` | OBT Raw 데이터 수집 → Google Sheets | 주간 |
 | \`/booking-snapshot\` | Booking Snapshot 생성 | 주간 |
 | \`/3w-dashboard\` | -3W Booking Dashboard 생성/배포 | 일간/주간 |
@@ -1429,7 +1529,7 @@ flowchart TD
 |------|------|----------|
 | \`.claude/commands\` | 반복 업무를 slash command로 표준화 | RFQ, 운임, OBT, Booking Snapshot, 주간 회의 |
 | \`.claude/skills\` | 특정 업무 지식과 실행 절차를 재사용 가능한 스킬로 관리 | rate-update, rate-dashboard, rate-compare, obt-update, kmtc-routes |
-| Google Drive/Gmail MCP | Drive/Sheets/Gmail 인증을 통한 파일 동기화, 메일/데이터 처리 | 비딩 파일 동기화, OBT Sheets 업데이트, 알림 발송 |
+| Google Drive/Gmail MCP | Drive/Sheets/Gmail 인증을 통한 파일 동기화, 메일/데이터 처리 | 글로벌 어카운트 RFQ 확인, 비딩 파일 동기화, OBT Sheets 업데이트, 알림 발송 |
 | Playwright/Tableau 자동화 | Tableau/ICC 화면에서 데이터 다운로드 및 갱신 | -3W Booking, OBT Raw, EFC/LSS |
 | GitHub Pages 배포 | 정적 HTML/JSON 대시보드를 배포 URL로 운영 | work-dashboard, kmtc-rate-dashboard, kmtc-3w-dashboard, EFC_LSS_monitoring |
 | 문서 지식화 | 개발 문서/가이드/변경 이력을 NotebookLM 등으로 질의 가능하게 관리 | 운영 기준, 지표 정의, 변경 사유 보존 |
@@ -1450,7 +1550,7 @@ flowchart TD
 | \`-3W bkg dashboard\` | WOS-3 부킹/실선적/캔슬/BSA/수익성 대시보드 | Tableau 다운로드, Grade 자동 갱신, 영업사원×도착국가 분석 |
 | \`weekly meeting\` | E-Group 주간 회의 HTML 대시보드/발표문 생성 | Tableau CSV 수집, 운임/시장 분석 결합 |
 | \`obt raw automation\` | OBT Raw 4종을 Google Sheets로 동기화 | 과거2개월, 당월, BL(BSA), BSA raw |
-| \`Project-Q\` | RFQ 파싱, 운임 자동입력, 비딩 파일 동기화 | RFQ 샘플/아카이브 기반 운임 DB 축적 |
+| \`Project-Q\` | RFQ 파싱, 운임 자동입력, 비딩 파일 동기화 | GEODIS/Ben Line/DAELIM 파서와 RFQ 샘플/아카이브 기반 운임 DB 축적 |
 | \`organizing rate file\` | KMTC 운임 DB/추이 대시보드/주간 운임 리포트 | Google Drive/Sheets 기반 운임 데이터 정규화 |
 | \`목표분배\` | 국가/권역별 CM1 목표 분배 | 월간 목표 설정 및 Forecast 연계 |
 | \`Apr 운임인상\` | 운임 인상/변동 안내용 대시보드 | GRI/PSS 등 월간 운임 변화 커뮤니케이션 |
@@ -1464,6 +1564,7 @@ flowchart TD
 | 데이터 분석 | 운임, CM1, BSA, 소석률 등 지표 분석 | Tableau, Python, Excel, Google Sheets |
 | 자동화/개발 | 업무 프로세스 자동화, 대시보드 구축, 배포 운영 | Python, Node.js, Claude Code, Playwright, GitHub Pages |
 | 영업 전략 | 시장/고객 동향 분석, 목표 수립 | Tableau, 시장 데이터 |
+| 글로벌 어카운트 관리 | GEODIS, Ben Line, DAELIM RFQ/성과/타겟 관리 | Gmail, Google Drive, Project-Q, RFQ Rate Database |
 | 커뮤니케이션 | 법인 협업, 보고서, 프레젠테이션, 운영 가이드 | Gmail, Google Drive, HTML 대시보드, NotebookLM |
 | 규정 이해 | FMC, AMS, S/C, NVOCC/VOCC | 사내 시스템 |
 
@@ -1482,10 +1583,11 @@ flowchart TD
         ├── 가격팀 ←→ 운임 책정, S/C 관리
         ├── 정산/운영팀 ←→ EFC/LSS 징수 Gap 확인 및 후속 조치
         ├── IT팀 ←→ 시스템 개선, 자동화, GitHub Pages 배포
+        ├── 글로벌 어카운트/포워더 ←→ GEODIS, Ben Line, DAELIM RFQ 및 성과 Follow-up
         └── 해외 법인 ←→ 현지 영업 실행
 \`\`\`
 
-**정기 회의**: 주간 E-Group 회의 | 월간 실적 리뷰 | 연간 전략회의 | 시스템 개선 TFT | 자동화/대시보드 운영 점검
+**정기 회의**: 주간 E-Group 회의 | 월간 실적 리뷰 | 글로벌 어카운트 Follow-up | 연간 전략회의 | 시스템 개선 TFT | 자동화/대시보드 운영 점검
 `;
 
     document.getElementById('md-viewer').innerHTML = marked.parse(mdSource);
