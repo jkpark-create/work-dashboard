@@ -1,0 +1,237 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1900" height="1280" viewBox="0 0 1900 1280">
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#333333"/>
+    </marker>
+    <style>
+      .title { font-family: Arial, 'Apple SD Gothic Neo', sans-serif; font-size: 34px; font-weight: 700; fill: #252525; }
+      .subtitle { font-family: Arial, 'Apple SD Gothic Neo', sans-serif; font-size: 16px; fill: #444444; }
+      .lane-title { font-family: Arial, 'Apple SD Gothic Neo', sans-serif; font-size: 22px; font-weight: 700; fill: #2b2b2b; }
+      .node-title { font-family: Arial, 'Apple SD Gothic Neo', sans-serif; font-size: 18px; font-weight: 700; fill: #2b2b2b; }
+      .node-small { font-family: Arial, 'Apple SD Gothic Neo', sans-serif; font-size: 13px; fill: #4f4f4f; }
+      .tag { font-family: Arial, 'Apple SD Gothic Neo', sans-serif; font-size: 13px; font-weight: 700; fill: #445; }
+      .lane { fill: #edf3ff; stroke: #5b8cff; stroke-width: 2; }
+      .source { fill: #f7f3ff; stroke: #8f6cff; stroke-width: 1.6; }
+      .process { fill: #eaf6ff; stroke: #2f86ff; stroke-width: 2; }
+      .decision { fill: #fff8e8; stroke: #f0a020; stroke-width: 2; }
+      .action { fill: #effaf3; stroke: #33a35c; stroke-width: 2; }
+      .output { fill: #fff7e9; stroke: #ff9900; stroke-width: 2; }
+      .support { fill: #fafafa; stroke: #aaa; stroke-width: 1.5; }
+      .line { stroke: #333333; stroke-width: 2; fill: none; marker-end: url(#arrow); }
+      .loop { stroke: #555555; stroke-width: 2; fill: none; marker-end: url(#arrow); stroke-dasharray: 7 6; }
+      .thin { stroke: #555555; stroke-width: 1.6; fill: none; marker-end: url(#arrow); }
+    </style>
+  </defs>
+
+  <rect width="1900" height="1280" fill="#ffffff"/>
+  <text x="950" y="54" text-anchor="middle" class="title">해외영업팀 데이터 활용 흐름도</text>
+  <text x="950" y="84" text-anchor="middle" class="subtitle">데이터를 모으는 것이 목적이 아니라, CM 판단 → 현지 Action → 결과 추적으로 이어지게 한다</text>
+
+  <!-- Lanes -->
+  <rect x="40" y="115" width="1820" height="155" rx="0" class="lane"/>
+  <text x="950" y="145" text-anchor="middle" class="lane-title">1. 데이터 소스: 선복·부킹·목표·운임·수익·현지 신호를 같은 권역 기준으로 모은다</text>
+
+  <rect x="40" y="300" width="1820" height="135" rx="0" class="lane"/>
+  <text x="950" y="330" text-anchor="middle" class="lane-title">2. 기준 정렬/갱신: 서로 다른 자료를 같은 Scope와 기준일로 맞춘다</text>
+
+  <rect x="40" y="465" width="1820" height="205" rx="0" class="lane"/>
+  <text x="950" y="495" text-anchor="middle" class="lane-title">3. CM 진단: 권역별로 무엇이 문제인지 먼저 판단한다</text>
+
+  <rect x="40" y="700" width="1820" height="220" rx="0" class="lane"/>
+  <text x="950" y="730" text-anchor="middle" class="lane-title">4. 판단 분기: 활용도와 수익성에 따라 다른 전략을 선택한다</text>
+
+  <rect x="40" y="950" width="1820" height="165" rx="0" class="lane"/>
+  <text x="950" y="980" text-anchor="middle" class="lane-title">5. 실행/반영: 현지 영업, 고객, 시스템, 보고로 연결한다</text>
+
+  <rect x="40" y="1145" width="1820" height="95" rx="0" class="lane"/>
+  <text x="950" y="1175" text-anchor="middle" class="lane-title">6. 피드백: 실행 결과를 다시 데이터와 기준으로 축적한다</text>
+
+  <!-- Source nodes -->
+  <g>
+    <rect x="75" y="172" width="180" height="62" rx="0" class="source"/>
+    <text x="165" y="197" text-anchor="middle" class="node-title">BSA/선복 계획</text>
+    <text x="165" y="220" text-anchor="middle" class="node-small">권역·주차·Route</text>
+
+    <rect x="285" y="172" width="180" height="62" rx="0" class="source"/>
+    <text x="375" y="197" text-anchor="middle" class="node-title">Booking/Lifting</text>
+    <text x="375" y="220" text-anchor="middle" class="node-small">BKG·실선적·Cancel</text>
+
+    <rect x="495" y="172" width="180" height="62" rx="0" class="source"/>
+    <text x="585" y="197" text-anchor="middle" class="node-title">Sales Target</text>
+    <text x="585" y="220" text-anchor="middle" class="node-small">Target·Perform·Gap</text>
+
+    <rect x="705" y="172" width="180" height="62" rx="0" class="source"/>
+    <text x="795" y="197" text-anchor="middle" class="node-title">Rate/CM1</text>
+    <text x="795" y="220" text-anchor="middle" class="node-small">운임·CM1/TEU</text>
+
+    <rect x="915" y="172" width="180" height="62" rx="0" class="source"/>
+    <text x="1005" y="197" text-anchor="middle" class="node-title">OBT Exception</text>
+    <text x="1005" y="220" text-anchor="middle" class="node-small">P1/P2·3W Signal</text>
+
+    <rect x="1125" y="172" width="180" height="62" rx="0" class="source"/>
+    <text x="1215" y="197" text-anchor="middle" class="node-title">EFC/LSS</text>
+    <text x="1215" y="220" text-anchor="middle" class="node-small">징수 Gap·BL 예외</text>
+
+    <rect x="1335" y="172" width="180" height="62" rx="0" class="source"/>
+    <text x="1425" y="197" text-anchor="middle" class="node-title">Global A/C</text>
+    <text x="1425" y="220" text-anchor="middle" class="node-small">RFQ·Award/Lost</text>
+
+    <rect x="1545" y="172" width="240" height="62" rx="0" class="support"/>
+    <text x="1665" y="197" text-anchor="middle" class="node-title">메일·현지 피드백</text>
+    <text x="1665" y="220" text-anchor="middle" class="node-small">보조 신호·예외 요청</text>
+  </g>
+
+  <!-- Standardization nodes -->
+  <rect x="190" y="352" width="270" height="54" rx="0" class="process"/>
+  <text x="325" y="374" text-anchor="middle" class="node-title">Scope 통일</text>
+  <text x="325" y="396" text-anchor="middle" class="node-small">권역·주차·POL/POD·고객군</text>
+
+  <rect x="610" y="352" width="270" height="54" rx="0" class="process"/>
+  <text x="745" y="374" text-anchor="middle" class="node-title">데이터 갱신/검증</text>
+  <text x="745" y="396" text-anchor="middle" class="node-small">누락·중복·기준일 확인</text>
+
+  <rect x="1030" y="352" width="270" height="54" rx="0" class="process"/>
+  <text x="1165" y="374" text-anchor="middle" class="node-title">대시보드 연결</text>
+  <text x="1165" y="396" text-anchor="middle" class="node-small">-3W·Target·Rate·OBT·EFC/LSS</text>
+
+  <rect x="1450" y="352" width="270" height="54" rx="0" class="process"/>
+  <text x="1585" y="374" text-anchor="middle" class="node-title">CM 조회 기준 확정</text>
+  <text x="1585" y="396" text-anchor="middle" class="node-small">오늘 볼 권역과 우선 Route</text>
+
+  <!-- Arrows source to standardization -->
+  <path d="M375 235 C375 280 325 305 325 350" class="thin"/>
+  <path d="M585 235 C585 285 745 300 745 350" class="thin"/>
+  <path d="M1005 235 C1005 285 1165 300 1165 350" class="thin"/>
+  <path d="M1425 235 C1425 285 1585 300 1585 350" class="thin"/>
+  <path d="M460 379 L607 379" class="line"/>
+  <path d="M880 379 L1027 379" class="line"/>
+  <path d="M1300 379 L1447 379" class="line"/>
+
+  <!-- Diagnostic nodes -->
+  <rect x="90" y="535" width="250" height="72" rx="0" class="process"/>
+  <text x="215" y="562" text-anchor="middle" class="node-title">BSA 활용도 진단</text>
+  <text x="215" y="586" text-anchor="middle" class="node-small">고활용·저활용·정상</text>
+
+  <rect x="400" y="535" width="250" height="72" rx="0" class="process"/>
+  <text x="525" y="562" text-anchor="middle" class="node-title">목표 Gap 분석</text>
+  <text x="525" y="586" text-anchor="middle" class="node-small">Target 대비 부족 위치</text>
+
+  <rect x="710" y="535" width="250" height="72" rx="0" class="process"/>
+  <text x="835" y="562" text-anchor="middle" class="node-title">운임 적정성 확인</text>
+  <text x="835" y="586" text-anchor="middle" class="node-small">Rate·CM1·고수익 비중</text>
+
+  <rect x="1020" y="535" width="250" height="72" rx="0" class="process"/>
+  <text x="1145" y="562" text-anchor="middle" class="node-title">저활용 원인 분해</text>
+  <text x="1145" y="586" text-anchor="middle" class="node-small">시장·가격·서비스·영업활동</text>
+
+  <rect x="1330" y="535" width="220" height="72" rx="0" class="process"/>
+  <text x="1440" y="562" text-anchor="middle" class="node-title">Global A/C 영향</text>
+  <text x="1440" y="586" text-anchor="middle" class="node-small">RFQ·조건·성과 영향</text>
+
+  <rect x="1600" y="535" width="220" height="72" rx="0" class="process"/>
+  <text x="1710" y="562" text-anchor="middle" class="node-title">수익 누수 확인</text>
+  <text x="1710" y="586" text-anchor="middle" class="node-small">EFC/LSS·징수 Gap</text>
+
+  <path d="M1585 407 C1585 455 215 455 215 532" class="thin"/>
+  <path d="M340 571 L397 571" class="line"/>
+  <path d="M650 571 L707 571" class="line"/>
+  <path d="M960 571 L1017 571" class="line"/>
+  <path d="M1270 571 L1327 571" class="line"/>
+  <path d="M1550 571 L1597 571" class="line"/>
+
+  <!-- Decisions -->
+  <polygon points="270,760 385,820 270,880 155,820" class="decision"/>
+  <text x="270" y="813" text-anchor="middle" class="node-title">활용도 상태?</text>
+  <text x="270" y="837" text-anchor="middle" class="node-small">높음 / 낮음 / 정상</text>
+
+  <rect x="475" y="760" width="260" height="72" rx="0" class="decision"/>
+  <text x="605" y="787" text-anchor="middle" class="node-title">높은 활용도</text>
+  <text x="605" y="811" text-anchor="middle" class="node-small">합당한 운임 적용 여부 확인</text>
+
+  <rect x="475" y="842" width="260" height="72" rx="0" class="decision"/>
+  <text x="605" y="869" text-anchor="middle" class="node-title">낮은 활용도</text>
+  <text x="605" y="893" text-anchor="middle" class="node-small">문제 원인과 집하 전략 확인</text>
+
+  <rect x="820" y="760" width="260" height="72" rx="0" class="decision"/>
+  <text x="950" y="787" text-anchor="middle" class="node-title">목표 Gap</text>
+  <text x="950" y="811" text-anchor="middle" class="node-small">현지 목표/Action 재설정</text>
+
+  <rect x="820" y="842" width="260" height="72" rx="0" class="decision"/>
+  <text x="950" y="869" text-anchor="middle" class="node-title">전략 고객 영향</text>
+  <text x="950" y="893" text-anchor="middle" class="node-small">RFQ·조건·Award/Lost 반영</text>
+
+  <rect x="1165" y="760" width="260" height="72" rx="0" class="decision"/>
+  <text x="1295" y="787" text-anchor="middle" class="node-title">정책/룰 변경</text>
+  <text x="1295" y="811" text-anchor="middle" class="node-small">시스템·SOP 반영 필요</text>
+
+  <rect x="1510" y="760" width="260" height="72" rx="0" class="decision"/>
+  <text x="1640" y="787" text-anchor="middle" class="node-title">수익 Gap</text>
+  <text x="1640" y="811" text-anchor="middle" class="node-small">징수/정산/데이터 수정 분리</text>
+
+  <path d="M215 608 C215 680 270 700 270 757" class="line"/>
+  <path d="M385 820 L472 796" class="line"/>
+  <path d="M385 820 L472 878" class="line"/>
+  <path d="M525 608 C525 690 950 700 950 757" class="thin"/>
+  <path d="M1440 608 C1440 700 950 725 950 839" class="thin"/>
+  <path d="M835 608 C835 700 1295 705 1295 757" class="thin"/>
+  <path d="M1710 608 C1710 700 1640 710 1640 757" class="thin"/>
+
+  <!-- Action nodes -->
+  <rect x="90" y="1010" width="245" height="66" rx="0" class="action"/>
+  <text x="212" y="1036" text-anchor="middle" class="node-title">운임·집하 가이드</text>
+  <text x="212" y="1059" text-anchor="middle" class="node-small">방어·인상·확대·조건 조정</text>
+
+  <rect x="410" y="1010" width="245" height="66" rx="0" class="action"/>
+  <text x="532" y="1036" text-anchor="middle" class="node-title">현지 목표/Action</text>
+  <text x="532" y="1059" text-anchor="middle" class="node-small">고객·조건·기한·확인 지표</text>
+
+  <rect x="730" y="1010" width="245" height="66" rx="0" class="action"/>
+  <text x="852" y="1036" text-anchor="middle" class="node-title">Global A/C Follow-up</text>
+  <text x="852" y="1059" text-anchor="middle" class="node-small">RFQ·Award/Lost·조건 변경</text>
+
+  <rect x="1050" y="1010" width="245" height="66" rx="0" class="action"/>
+  <text x="1172" y="1036" text-anchor="middle" class="node-title">룰/시스템 반영</text>
+  <text x="1172" y="1059" text-anchor="middle" class="node-small">요율·조건·SOP 업데이트</text>
+
+  <rect x="1370" y="1010" width="245" height="66" rx="0" class="action"/>
+  <text x="1492" y="1036" text-anchor="middle" class="node-title">징수/정산 Follow-up</text>
+  <text x="1492" y="1059" text-anchor="middle" class="node-small">BL·고객·정산 상태 관리</text>
+
+  <rect x="1640" y="1010" width="180" height="66" rx="0" class="output"/>
+  <text x="1730" y="1036" text-anchor="middle" class="node-title">보고자료</text>
+  <text x="1730" y="1059" text-anchor="middle" class="node-small">주간/월간 회의</text>
+
+  <path d="M605 832 C605 955 212 940 212 1007" class="line"/>
+  <path d="M605 914 C605 955 212 950 212 1007" class="line"/>
+  <path d="M950 832 C950 950 532 950 532 1007" class="line"/>
+  <path d="M950 914 C950 950 852 950 852 1007" class="line"/>
+  <path d="M1295 832 C1295 950 1172 950 1172 1007" class="line"/>
+  <path d="M1640 832 C1640 950 1492 950 1492 1007" class="line"/>
+  <path d="M335 1043 L407 1043" class="thin"/>
+  <path d="M655 1043 L727 1043" class="thin"/>
+  <path d="M975 1043 L1047 1043" class="thin"/>
+  <path d="M1295 1043 L1367 1043" class="thin"/>
+  <path d="M1615 1043 L1637 1043" class="thin"/>
+
+  <!-- Feedback -->
+  <rect x="165" y="1190" width="260" height="36" rx="0" class="output"/>
+  <text x="295" y="1214" text-anchor="middle" class="tag">Action 결과 로그</text>
+
+  <rect x="560" y="1190" width="260" height="36" rx="0" class="output"/>
+  <text x="690" y="1214" text-anchor="middle" class="tag">대시보드 재확인</text>
+
+  <rect x="955" y="1190" width="260" height="36" rx="0" class="output"/>
+  <text x="1085" y="1214" text-anchor="middle" class="tag">주간 회의 안건</text>
+
+  <rect x="1350" y="1190" width="260" height="36" rx="0" class="output"/>
+  <text x="1480" y="1214" text-anchor="middle" class="tag">SOP/자동화 개선</text>
+
+  <path d="M532 1076 C532 1140 295 1135 295 1187" class="line"/>
+  <path d="M1730 1076 C1730 1150 1085 1135 1085 1187" class="line"/>
+  <path d="M1172 1076 C1172 1145 1480 1135 1480 1187" class="line"/>
+  <path d="M690 1190 C690 1110 1755 1110 1755 390 C1755 350 1710 350 1585 350" class="loop"/>
+
+  <!-- Support note -->
+  <rect x="75" y="250" width="1710" height="1" fill="#c7d7ff"/>
+  <text x="1620" y="256" text-anchor="middle" class="node-small">메일·요청은 보조 신호이며, 핵심 판단을 바꾸는 경우만 메인 흐름에 연결한다.</text>
+</svg>
